@@ -53,6 +53,22 @@
     height: 100%;
 }
 
+body .input-container1 .is-valid{
+    border: 1px solid green
+}
+
+body .input-container1 .is-invalid {
+    border: 1px solid red;
+    
+}
+
+.text-danger {
+    color: red;
+}
+
+.text-information {
+    color: rgb(255, 117, 58);
+}
 
 .login_acc {
     margin-top: 54px;
