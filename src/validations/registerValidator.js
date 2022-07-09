@@ -19,9 +19,11 @@ let validateRegister = [
 
         }),
     check('name')
-        .notEmpty().withMessage('Debes ingresar un nombre').bail(),
+        .notEmpty().withMessage('Debes ingresar un nombre').bail()
+        .isLength({ min: 2}).withMessage('Ingrese un nombre valido'),
     check('lastname')
-        .notEmpty().withMessage('Debes ingresar tu apellido').bail(),
+        .notEmpty().withMessage('Debes ingresar tu apellido').bail()
+        .isLength({ min: 2}).withMessage('ingrese un apellido valido'),
     check('email')
         .notEmpty().withMessage('Debes ingresar un email').bail()
         .isEmail().withMessage('Debes ingresar un email valido'),
