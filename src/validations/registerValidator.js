@@ -42,7 +42,9 @@ let validateRegister = [
     }),
     check('password')
         .notEmpty().withMessage('Debes ingresar una contraseña').bail()
-        .isLength({ min: 6 }).withMessage('Contraseña debe ser mas larga'),
+        .isLength({ min: 8 }).withMessage('Contraseña minimo 8 caracteres')
+        .matches(/(?=(.*[0-9]))(?=.*[\!@#$%^&*()\\[\]{}\-_+=|:;"'<>,./?])(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{8,}/)
+        .withMessage('Debe tener una letra minúscula, una letra mayúscula, un número, un carácter especial y mínimo 8 dígitos'),
     check('password2')
         .notEmpty().withMessage('Reingrese su contraseña').bail(),
     body('password2').custom((value, { req }) => {

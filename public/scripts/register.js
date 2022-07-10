@@ -1,20 +1,23 @@
-let $user = document.querySelector('#user');
-let $userError = document.querySelector('#userError')
-let $name = document.querySelector('#name');
-let $nameError = document.querySelector('#nameError');
-let $lastname = document.querySelector('#lastname');
-let $lastnameError = document.querySelector('#lastnameError');
-let $email = document.querySelector('#email');
-let $emailError = document.querySelector('#emailError');
-let $password = document.querySelector('#password');
-let $passwordError = document.querySelector('#passwordError');
-let $repassword = document.querySelector('#password2');
-let $repasswordError = document.querySelector('#repasswordError');
-let $avatar = document.querySelector('#avatar');
-let $terms = document.querySelector('#terms');
-let $termsError = document.querySelector('#termsError');
-let $btnRegister = document.querySelector('.btn-register');
-let $inputs = document.querySelectorAll('.inputs-container1 input');
+window.addEventListener('load', () => {
+
+const $user = document.querySelector('#user');
+const $userError = document.querySelector('#userError');
+const $name = document.querySelector('#name');
+const $nameError = document.querySelector('#nameError');
+const $lastname = document.querySelector('#lastname');
+const $lastnameError = document.querySelector('#lastnameError');
+const $email = document.querySelector('#email');
+const $emailError = document.querySelector('#emailError');
+const $password = document.querySelector('#password');
+const $passwordError = document.querySelector('#passwordError');
+const $repassword = document.querySelector('#password2');
+const $repasswordError = document.querySelector('#repasswordError');
+const $avatar = document.querySelector('#avatar');
+const $terms = document.querySelector('#terms');
+const $termsError = document.querySelector('#termsError');
+const $formRegister = document.querySelector('#form-register');
+const $btnRegister = document.querySelector('.btn-register');
+const $inputs = document.querySelectorAll('.inputs-container1 input');
 const regEx = {
     user: /^[a-z0-9_-]{4,16}$/,
     name: /^[A-ZÑa-zñáéíóúÁÉÍÓÚ'° ]*$/,
@@ -110,34 +113,49 @@ $email.addEventListener('blur', e => {
     }
 });
 
+$password.addEventListener('focus', e => {
+    $passwordError.innerHTML ='Debe tener una letra minúscula, una letra mayúscula, un número, un carácter especial y mínimo 8 dígitos';
+    $passwordError.classList.add('text-information')
+})
+
 $password.addEventListener('blur', e => {
     switch(true){
-        case $password.value.length == '':
+        case !$password.value.trim():
             $passwordError.innerHTML = 'Este campo no puede estar vacio';
+            $passwordError.classList.remove('text-information')
             $password.classList.add('is-invalid');
             $passwordError.classList.add('text-danger');
-            console.log($password.value)
             break;
         case !regEx.password.test($password.value):
             $passwordError.innerHTML = 'La contrasena  debe tener una letra minúscula, una letra mayúscula, un número, un carácter especial y mínimo 8 dígitos '
+            $passwordError.classList.remove('text-information')
             $passwordError.classList.add('text-danger');
             $password.classList.add('is-invalid');
             break;
-        case $password.value !== $repassword.value && $repassword.value != '':
+        case $password.value !== $repassword.value && $repassword.value !== '':
             $repasswordError.innerHTML = 'Las contraseñas deben ser iguales'
+            $passwordError.classList.remove('text-information')
             $repasswordError.classList.add('text-danger'); 
             $repassword.classList.add('is-invalid'); 
             break; 
-        case $password.value === $repassword.value && $repassword.value != '':
+        case $password.value === $repassword.value && $repassword.value !== '':
             $repassword.classList.remove('is-invalid');
+            $passwordError.classList.remove('text-information')
             $repassword.classList.add('is-valid');
             $repasswordError.innerHTML = '';
             break;       
         case $password.value === $repassword.value:
+            $passwordError.classList.remove('text-information')
             $password.classList.remove('is-invalid');
             $password.classList.add('is-valid');
             $passwordError.innerHTML = '';
-            break;                     
+            break;
+        case $password.value === $repassword.value && $repassword.classList.contains('is-valid'):
+            $passwordError.classList.remove('text-information')
+            $password.classList.remove('is-invalid');
+            $password.classList.add('is-valid');
+            $passwordError.innerHTML = ''; 
+            break;                        
         default:
             $password.classList.remove('is-invalid');
             $password.classList.add('is-valid');
@@ -154,11 +172,9 @@ $repassword.addEventListener('blur', e => {
             $repasswordError.classList.add('text-danger');
             break;
         case $password.value !== $repassword.value:
-            $repasswordError.innerHTML = 'Las contraseñas deben ser iguales'
+            $repasswordError.innerHTML = 'Las contraseñas deben ser iguales';
             $repasswordError.classList.add('text-danger'); 
             $repassword.classList.add('is-invalid'); 
-            console.log($repassword.value)
-            console.log($password.value)
             break; 
         case $password.value === $repassword.value:
             $repassword.classList.remove('is-invalid');
@@ -167,119 +183,56 @@ $repassword.addEventListener('blur', e => {
             break;  
            
     }
-})
-
-
-
-
-/*
-$user.addEventListener('focus', e => {
-    
-    $userError.innerHTML = 'Minimo 5 caracteres'
-    $userError.style.color = '#ff753a'
-    
-    if($user.value.length >= 5){
-        $userError.innerHTML = ''
-        $user.style.border = '1px solid green'
-    }else{
-        $user.style.border = '1px solid red'
-    }
-    
-    
-    
 });
 
-$user.addEventListener('change', e => {
-    
-    if(e.target.value.length >= 5){
-        $userError.innerHTML = ''
-        $user.style.border = '1px solid green'
-    }else{
-        $user.style.border = '1px solid red'
-    }
+$terms.addEventListener('click', () => {
+    $terms.value = 'on';
+    $terms.classList.toggle('is-valid');
+    $terms.classList.remove('is-invalid');
+    $termsError.innerHTML = '';
 })
 
-$user.addEventListener('blur', e => {
-    if($user.value == ''){
-        $userError.innerHTML = 'Este campo no puede estar vacio'
-        $userError.style.color = 'red'
-    }
-})
 
-$name.addEventListener('focus', e => {
-    
- 
-    
-    if($name.value.length >= 2){
-        $nameError.innerHTML = ''
-        $name.style.border = '1px solid green'
-    }else{
-        $nameError.innerHTML = 'Introduzca su nombre'
-        $nameError.classList.add('text-information')
-        $nameError.classList.remove('text-danger')
-        $name.style.border = '1px solid red'
-        console.log($nameError)
-    }
-    
-    
-    
-});
+$formRegister.addEventListener('submit', e => {
+    e.preventDefault();
 
-$name.addEventListener('change', e => {
-    
-    if($name.value.length >= 2){
-        $userError.innerHTML = ''
-        $name.style.border = '1px solid green'
-    }else{
-        $nameError.innerHTML = 'Ingrese un nombre valido'
-        $nameError.classList.remove('text-information')
-        $nameError.classList.add('text-danger')
-        $name.style.border = '1px solid red'
-    }
-})
+    for(let i = 0; i < $inputs.length; i++){
+        if($inputs[i].value == '' && $inputs[i].name !== 'avatar'){
+            $inputs[i].classList.add('is-invalid');
+            submitErrors.innerHTML = 'Los campos señalados son obligatorios';
+            submitErrors.classList.add('text-danger');
+        }
 
-$name.addEventListener('blur', e => {
-    if($name.value == ''){
-        $nameError.innerHTML = 'Este campo no puede estar vacio'
-        $nameError.classList.remove('text-information')
-        $name.classList.add('is-invalid')
-        $nameError.classList.add('text-danger')
-        console.log($nameError)
+    }
+
+    if(!$terms.checked){
+        $termsError.innerHTML = 'Debes aceptar los terminos y condiciones';
+        $termsError.classList.add('text-danger');
+        $terms.classList.add('is-invalid');
+
+    }
+    let errors = []
+    $inputs.forEach(input => {
         
-    }else if($name.value.length >= 2){
-        $nameError.innerHTML = ''
-    }
-})
-
-$lastname.addEventListener('focus', e => {
-    if($lastname.value.length > 2) {
+        if(input.classList.contains('is-invalid')){
+            errors.push(input)
+            
+        }
 
 
+   })
+
+    if(errors.length == 0){
+        $formRegister.submit()
     }else{
-        $lastnameError.innerHTML = 'Introduzca su apellido'
-        $lastnameError.classList.remove('text-danger')
-        $lastnameError.classList.add('text-information')
+        console.log( `hay ${errors.length} errores`);
     }
-    
-})
+   
+});
 
-$lastname.addEventListener('blur', e => {
-    if($lastname.value == ''){
-        $lastnameError.innerHTML = 'Este campo no puede estar vacio'
-        $lastnameError.classList.add('text-danger')
-        $lastname.classList.add('is-invalid')
-        $lastnameError.classList.remove('text-information')
-    }
-})
+});
 
-$lastname.addEventListener('change', e => {
-    if($lastname.value.length >= 2){
-        $lastname.classList.remove('is-invalid')
-        $lastname.classList.add('is-valid');
-        $lastnameError.innerHTML = ''
-    }else{
-        $lastnameError.innerHTML = 'Ingrese un apellido valido'
-        $lastnameError.classList.remove('text-information')
-        $lastnameError.classList.add('text-danger')
-    }
-}) */
+
+
+
+

@@ -4,7 +4,7 @@
 <body class="home-container forms-body admin-container form-login">
     <%-include('../partials/header')  %>
     <main>
-        <form action="/users/login" method="POST" class="form-addProduct">
+        <form action="/users/login" method="POST" class="form-addProduct" id="form-login">
             <div class="form-container1 login-container1">
                 <div class="new-products-separador"></div>
                 <h2>Login</h2>
@@ -15,6 +15,9 @@
                         <% if (locals.errors && errors.email) { %>
                             <span class="error-message1 error-msg-register"><%= errors.email.msg %></span>
                         <% } %>
+                        <div class="errors">
+                            <small class="text-danger error" id="emailError"></small>
+                        </div>
                     </div>
                     <div class="input-container1">
                         <label for="password">Contraseña</label>
@@ -22,6 +25,9 @@
                         <% if (locals.errors && errors.password) { %>
                             <span class="error-message1 error-msg-register"><%= errors.password.msg %></span>
                         <% } %>
+                        <div class="errors">
+                            <small class="text-danger error"id="passwordError"></small>
+                        </div>
                     </div>
                     <div class="remember">
                         <input type="checkbox" name="remember"  >
@@ -30,6 +36,7 @@
                     <div class="btn-container">
                         <button class="btn-register" type="submit" >Ingresar</button>
                     </div>
+                    <small id="submitErrors"></small>
                     <div class="input-container1">
                         <a href="">¿Olvidaste tu contraseña?</a><br>
                         <a href="/users/register">¿No tenes cuenta?</a>
@@ -39,6 +46,6 @@
         </form>    
     </main>
     <%-include('../partials/footer')  %> 
-    <script src="../scripts/login.js"></script>
+    <script src="/scripts/login.js"></script>
 </body>
 </html>

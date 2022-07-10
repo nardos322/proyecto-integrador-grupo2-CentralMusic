@@ -4,7 +4,7 @@
 <body class="home-container forms-body admin-container">
     <%-include('../partials/header') %>
         <main>
-            <form action="/users/register" method="POST" enctype="multipart/form-data" class="form-addProduct">
+            <form action="/users/register" method="POST" enctype="multipart/form-data" class="form-addProduct" id="form-register">
                 <div class="form-container1">
                     <div class="new-products-separador"></div>
                     <h2>Registro de usuario</h2>
@@ -85,6 +85,7 @@
                         </div>
                         <div class="btn-container">
                             <button class="btn-register" type="submit" >Registrarme</button>
+                            <small id="submitErrors"></small>
                             <div class="login_acc">
                                 <a href="/users/login">¿Ya tenes cuenta?</a>
                             </div>

@@ -16,9 +16,6 @@ const usersController = {
     processLogin: (req, res) => {
         const errors = validationResult(req); // traigo los errores del body
 
-        
-
-        
         if(errors.isEmpty()){
             // inicia sesion
             
@@ -48,6 +45,7 @@ const usersController = {
             })
     
         }else{
+            
             res.render('users/login', {
                 errors: errors.mapped(),
                 old: req.body,
@@ -68,8 +66,6 @@ const usersController = {
     processRegister: (req, res) => {
         
        const errors = validationResult(req);
-
-       
 
        if(errors.isEmpty()){
            // si no hay errores crear el usuario

@@ -28,6 +28,18 @@
    
 }
 
+.input-style1.login-information{
+    border-bottom:  1px solid rgb(255, 117, 58);
+}
+
+.input-style1.login-is-valid{
+    border-bottom: 1px solid green;
+}
+
+.input-style1.login-is-invalid{
+    border-bottom: 1px solid red;
+}
+
 .login-inputs-container .btn-container {
     width: 100%;
 }
@@ -48,6 +60,12 @@
 
 .login-container1 a:hover {
     color: #FF753A;
+}
+
+.form-login #submitErrors {
+    display: block;
+    text-align: center;
+    margin-bottom: 10px;
 }
 
 .remember {
