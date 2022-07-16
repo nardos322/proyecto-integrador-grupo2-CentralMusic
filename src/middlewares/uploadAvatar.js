@@ -12,9 +12,24 @@ const storage = multer.diskStorage({
 
 });
 
+
+
 const upload = multer({
     storage: storage,
-    limits: { fieldSize: 20000 },
+    limits: { fieldSize: 2097152 },
+    fileFilter: (req, file, cb) => {
+        console.log(file)
+        const filetypes = /jpg|JPG|gif|GIF|png|PNG|jpeg|JPEG/
+        const mimetype = filetypes.test(file.mimetype);
+        const extname = filetypes.test(path.extname(file.originalname));
+        console.log(mimetype)
+        console.log(extname)
+        if(mimetype && extname){
+            return cb(null, true);
+        }
+        //console.log(file)
+        cb('Error: el archivo debe ser una imagen, vuelva para atras');
+    }
 
 });
 

@@ -25,7 +25,7 @@ module.exports = (sequelize, dataTypes) => {
             unique: true,
         },
         password: {
-            type: dataTypes.STRING(45),
+            type: dataTypes.STRING(70),
             allowNull: false,
         },
         avatar: {

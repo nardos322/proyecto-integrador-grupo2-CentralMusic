@@ -5,6 +5,7 @@ let validateRegister = [
     check('user')
         .notEmpty().withMessage('Debes ingresar un usuario').bail()
         .isLength({ min: 5}).withMessage('ingrese un usuario valido')
+        .matches(/^[a-z0-9_-]{4,16}$/).withMessage('Ingrese un usuario valido')
         .custom((value) => {
             return db.User.findOne({
                 where: {
@@ -20,13 +21,16 @@ let validateRegister = [
         }),
     check('name')
         .notEmpty().withMessage('Debes ingresar un nombre').bail()
-        .isLength({ min: 2}).withMessage('Ingrese un nombre valido'),
+        .isLength({ min: 2}).withMessage('Ingrese un nombre valido')
+        .matches(/^[A-ZÑa-zñáéíóúÁÉÍÓÚ'° ]*$/).withMessage('Ingrese un nombre valido'),
     check('lastname')
         .notEmpty().withMessage('Debes ingresar tu apellido').bail()
-        .isLength({ min: 2}).withMessage('ingrese un apellido valido'),
+        .isLength({ min: 2}).withMessage('ingrese un apellido valido')
+        .matches(/^[A-ZÑa-zñáéíóúÁÉÍÓÚ'° ]*$/).withMessage('Ingrese un apellido valido'),
     check('email')
         .notEmpty().withMessage('Debes ingresar un email').bail()
-        .isEmail().withMessage('Debes ingresar un email valido'),
+        .isEmail().withMessage('Debes ingresar un email valido')
+        .matches(/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/).withMessage('Ingrese un email valido'),
     check('email').custom((value) => {
        return db.User.findOne({
            where: {

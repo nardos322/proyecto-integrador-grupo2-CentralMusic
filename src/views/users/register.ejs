@@ -71,7 +71,10 @@
                         </div>
                         <div class="input-container1 file-container">
                             <label for="avatar"  class="btn-file">Avatar</label>
-                            <input type="file" name="avatar" id="avatar" accept=".png, .jpg" class="file">
+                            <input type="file" name="avatar" id="avatar" accept=".png, .jpg, .jpeg, .gif" class="file">
+                            <div class="errors">
+                                <small id="avatarError"></small>
+                            </div>
                         </div>
                         <div class="input-container1 terms-container">
                             <input type="checkbox" name="terms" id="terms" class="terms" <%= locals.old && (old.terms === 'on') ? 'checked' : null  %> >
@@ -95,6 +98,6 @@
             </form>
         </main>
     <%-include('../partials/footer') %> 
-    <script src="/scripts/register.js"></script>
+    <script src="/scripts/registerValidator.js"></script>
 </body>
 </html>

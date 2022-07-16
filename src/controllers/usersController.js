@@ -66,9 +66,10 @@ const usersController = {
     processRegister: (req, res) => {
         
        const errors = validationResult(req);
-
+      
        if(errors.isEmpty()){
            // si no hay errores crear el usuario
+           
            db.User.create({
                user: req.body.user,
                name: req.body.name,
@@ -127,6 +128,7 @@ const usersController = {
 
     updateProfile: (req, res) => {
         let errors = validationResult(req);
+        
         //return res.send(errors)
         if(errors.isEmpty()){
            //return res.send(req.file)

@@ -6,7 +6,7 @@
     <%-include('../partials/header')  %>    
     
     
-    <form action="/admin/guitars" method="POST" enctype="multipart/form-data" class="form-addProduct">
+    <form action="/admin/guitars" method="POST" enctype="multipart/form-data" class="form-addProduct" id="formAddGuitar">
         
         <div class="form-container1">
             <div class="new-products-separador"></div>
@@ -18,6 +18,9 @@
                     <% if (locals.errors && errors.nameProduct) { %>
                         <span class="error-message1"><%= errors.nameProduct.msg %></span>
                     <% } %>
+                    <div class="errors">
+                        <small id="nameProductError"></small>
+                    </div>
                 </div>
                 <div class="input-container1">
                     <label for="marca">Seleccione marca</label>
@@ -31,6 +34,9 @@
                     <% if (locals.errors && errors.marca) { %>
                         <span class="error-message1"><%= errors.marca.msg %></span>
                     <% } %>
+                    <div class="errors">
+                        <small id="marcaError"></small>
+                    </div>
                     
                  </div>
                  <div class="input-container1">
@@ -39,7 +45,9 @@
                     <% if (locals.errors && errors.price) { %>
                         <span class="error-message1"><%= errors.price.msg  %> </span>
                     <% } %>
-                    
+                    <div class="errors">
+                        <small id="priceError"></small>
+                    </div>
                 </div>
                 <div class="input-container1">
                     <label for="line">Linea</label>
@@ -47,7 +55,9 @@
                     <% if (locals.errors && errors.line) { %>
                         <span class="error-message1"><%= errors.line.msg  %> </span>
                     <% } %>
-                    
+                    <div class="errors">
+                        <small id="lineError"></small>
+                    </div>
                 </div>
                 <div class="input-container1">
                     <label for="model">Modelo</label>
@@ -55,7 +65,9 @@
                     <% if (locals.errors && errors.model) { %>
                         <span class="error-message1"><%= errors.model.msg  %> </span>
                     <% } %>
-                    
+                    <div class="errors">
+                        <small id="modelError"></small>
+                    </div>
                 </div>
                 <div class="input-container1">
                     <label for="hand">Orientacion de la mano</label>
@@ -63,7 +75,9 @@
                     <% if (locals.errors && errors.hand) { %>
                         <span class="error-message1"><%= errors.hand.msg  %> </span>
                     <% } %>
-                    
+                    <div class="errors">
+                        <small id="handError"></small>
+                    </div>
                 </div>
                 
                 <div class="input-container1">
@@ -72,7 +86,9 @@
                     <% if (locals.errors && errors.color) { %>
                         <span class="error-message1"><%= errors.color.msg  %> </span>
                     <% } %>
-                    
+                    <div class="errors">
+                        <small id="colorError"></small>
+                    </div>
                 </div>
                 <div class="input-container1">
                     <label for="materialBody">Tipo de madera del cuerpo</label>
@@ -80,7 +96,9 @@
                     <% if (locals.errors && errors.materialBody) { %>
                         <span class="error-message1"><%= errors.materialBody.msg %></span>
                     <% } %>
-                    
+                    <div class="errors">
+                        <small id="materialBodyError"></small>
+                    </div>
                 </div>
                 <div class="input-container1">
                     <label for="materialFretboard">Material del diapason</label>
@@ -88,7 +106,9 @@
                     <% if (locals.errors && errors.materialFretboard) { %>
                         <span class="error-message1"><%= errors.materialFretboard.msg  %> </span>
                     <% } %>
-                    
+                    <div class="errors">
+                        <small id="materialFretboardError"></small>
+                    </div>
                 </div>
                 <div class="input-container1">
                     <label for="bodyFinish">Acabado del cuerpo</label>
@@ -96,6 +116,9 @@
                     <% if (locals.errors && errors.bodyFinish) { %>
                         <span class="error-message1"><%= errors.bodyFinish.msg %></span>
                     <% } %> 
+                    <div class="errors">
+                        <small id="bodyFinishError"></small>
+                    </div>
                 </div>
                 <div class="input-container1 file-container">
                     <label for="image"  class="btn-file">Agregar imagenes</label>
@@ -103,7 +126,9 @@
                     <% if (locals.errors && errors.image) { %>
                         <span class="error-message1"><%= errors.image.msg %></span>
                     <% } %>
-                    
+                    <div class="errors">
+                        <small id="imageError"></small>
+                    </div>                    
                 </div>
             
                 <div class="btn-switch input-container1">
@@ -119,14 +144,18 @@
                 <% if (locals.errors && errors.description) { %>
                     <span class="error-message1"><%= errors.description.msg %></span>
                 <% } %>
+                <div class="errors">
+                    <small id="descriptionError"></small>
+                </div>
             </div>
             <div class="btn-container">
                 <button class="btn-style" type="submit" >Crear</button>
+                <small id="submitError"></small>
             </div>
         </div>
     </form>
 
     <%-include('../partials/footer')  %> 
-    
+    <script src="/scripts/addGuitarValidator.js"></script>
 </body>
 </html>

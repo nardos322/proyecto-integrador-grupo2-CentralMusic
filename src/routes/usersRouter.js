@@ -6,7 +6,7 @@ const registerValidator = require('../validations/registerValidator');
 const loginValidator = require('../validations/loginValidator');
 const profileValidator = require('../validations/profileValidator')
 const userInSessionCheck = require('../middlewares/userInSessionCheck');
-const userSessionCheck = require('../middlewares/userSessionCheck')
+const userSessionCheck = require('../middlewares/userSessionCheck');
 
 
 // GET - renderiza vista login 
@@ -20,11 +20,11 @@ router.post('/register', uploadFile.single('avatar'), registerValidator, usersCo
 // GET - Renderiza la vista de perfil del usuario
 router.get('/profile', userSessionCheck, usersController.profile);
 // GET - Renderiza la vista de la edicion del perfil
-router.get('/profile/edit', userSessionCheck, usersController.editProfile)
+router.get('/profile/edit', userSessionCheck, usersController.editProfile);
 // Actualiza el perfil de usuario
-router.put('/profile',uploadFile.single('avatar'), userSessionCheck, profileValidator, usersController.updateProfile)
+router.put('/profile',uploadFile.single('avatar'), userSessionCheck, profileValidator, usersController.updateProfile);
 // Borra perfil de usuario
-router.delete('/profile/delete/:id', usersController.deleteUser)
+router.delete('/profile/delete/:id', usersController.deleteUser);
 // get - logout 
 router.get('/logout', usersController.logout);
 

@@ -67,7 +67,7 @@ router.put('/products/cable/:id', uploadFile.array('image'), adminProductsContro
 
 
 /* DELETE - Elimina un producto */
-router.delete('/products/delete/:id', adminProductsController.delete)
+router.delete('/products/delete/:id', adminProductsController.delete);
 
 
 

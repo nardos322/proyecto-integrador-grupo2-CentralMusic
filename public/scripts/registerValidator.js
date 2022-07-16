@@ -13,6 +13,7 @@ const $passwordError = document.querySelector('#passwordError');
 const $repassword = document.querySelector('#password2');
 const $repasswordError = document.querySelector('#repasswordError');
 const $avatar = document.querySelector('#avatar');
+const $avatarError = document.querySelector('#avatarError')
 const $terms = document.querySelector('#terms');
 const $termsError = document.querySelector('#termsError');
 const $formRegister = document.querySelector('#form-register');
@@ -24,6 +25,8 @@ const regEx = {
     lastname: /^[A-ZÑa-zñáéíóúÁÉÍÓÚ'° ]*$/,
     password: /(?=(.*[0-9]))(?=.*[\!@#$%^&*()\\[\]{}\-_+=|:;"'<>,./?])(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{8,}/,
     email: /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/,
+    avatar: /jpg|JPG|gif|GIF|png|PNG|jpeg|JPEG/
+
 }
 
 
@@ -116,6 +119,7 @@ $email.addEventListener('blur', e => {
 $password.addEventListener('focus', e => {
     $passwordError.innerHTML ='Debe tener una letra minúscula, una letra mayúscula, un número, un carácter especial y mínimo 8 dígitos';
     $passwordError.classList.add('text-information')
+    
 })
 
 $password.addEventListener('blur', e => {
@@ -131,6 +135,7 @@ $password.addEventListener('blur', e => {
             $passwordError.classList.remove('text-information')
             $passwordError.classList.add('text-danger');
             $password.classList.add('is-invalid');
+            console.log($password)
             break;
         case $password.value !== $repassword.value && $repassword.value !== '':
             $repasswordError.innerHTML = 'Las contraseñas deben ser iguales'
@@ -143,6 +148,7 @@ $password.addEventListener('blur', e => {
             $passwordError.classList.remove('text-information')
             $repassword.classList.add('is-valid');
             $repasswordError.innerHTML = '';
+            $passwordError.innerHTML = '';
             break;       
         case $password.value === $repassword.value:
             $passwordError.classList.remove('text-information')
@@ -150,12 +156,11 @@ $password.addEventListener('blur', e => {
             $password.classList.add('is-valid');
             $passwordError.innerHTML = '';
             break;
-        case $password.value === $repassword.value && $repassword.classList.contains('is-valid'):
+        case !regEx.password.test($password.value) && $password.classList.contains('is-valid') && $repassword.classList.contains('is-valid'):
             $passwordError.classList.remove('text-information')
             $password.classList.remove('is-invalid');
-            $password.classList.add('is-valid');
             $passwordError.innerHTML = ''; 
-            break;                        
+            break;                       
         default:
             $password.classList.remove('is-invalid');
             $password.classList.add('is-valid');
@@ -190,7 +195,30 @@ $terms.addEventListener('click', () => {
     $terms.classList.toggle('is-valid');
     $terms.classList.remove('is-invalid');
     $termsError.innerHTML = '';
-})
+});
+
+$avatar.addEventListener('change', e => {
+    if(!regEx.avatar.exec($avatar.value)){
+        $avatarError.innerHTML = 'El archivo que intenta subir no es  valido, extensiones permitidas: png, jpeg, jpg, gif, este campo no es obligatorio'
+        $avatarError.classList.add('text-information')
+        
+        $avatar.value = ''
+        console.log($avatar.files)
+        console.log(e.target)
+        
+    }else if($avatar.files[0].size > 2097152){
+        $avatarError.innerHTML = 'La imagen no puede pesar mas de 2mb'
+        $avatarError.classList.add('text-information')
+        $avatar.value = ''
+        
+
+    }else{
+        $avatarError.innerHTML = ''
+        console.log($avatar.files)
+    }
+});
+
+
 
 
 $formRegister.addEventListener('submit', e => {
@@ -211,7 +239,7 @@ $formRegister.addEventListener('submit', e => {
         $terms.classList.add('is-invalid');
 
     }
-    let errors = []
+    let errors = [];
     $inputs.forEach(input => {
         
         if(input.classList.contains('is-invalid')){
@@ -226,6 +254,7 @@ $formRegister.addEventListener('submit', e => {
         $formRegister.submit()
     }else{
         console.log( `hay ${errors.length} errores`);
+        submitErrors.innerHTML = 'Hay errores';
     }
    
 });
