@@ -11,11 +11,11 @@ const adminSessionCheck = require('../middlewares/adminSessionCheck');
 
 
 // admin index
-router.get('/', adminSessionCheck, adminController.index);
-router.get('/guitars', adminSessionCheck, adminController.guitars)
-router.get('/accesories', adminSessionCheck, adminController.accesories)
-router.get('/pedals', adminSessionCheck,adminController.pedals)
-router.get('/cables', adminSessionCheck, adminController.cables)
+router.get('/', /*adminSessionCheck,*/ adminController.index);
+router.get('/guitars', /*adminSessionCheck,*/ adminController.guitars)
+router.get('/accesories', /*adminSessionCheck,*/ adminController.accesories)
+router.get('/pedals', /*adminSessionCheck,*/adminController.pedals)
+router.get('/cables', /*adminSessionCheck,*/ adminController.cables)
 
 
 
@@ -23,11 +23,11 @@ router.get('/cables', adminSessionCheck, adminController.cables)
 //CRUD de productos
 
 //GET - Lista de productos 
-router.get('/products', adminSessionCheck, adminProductsController.list);
+router.get('/products', /*adminSessionCheck,*/ adminProductsController.list);
 //GET - detalle de producto vista admin
 router.get('/product/detail/:id', adminSessionCheck, adminProductsController.detail);
 //GET envia vista de formulario para agregar una guitarra
-router.get('/products/guitar/add', adminSessionCheck, adminProductsController.addGuitar);
+router.get('/products/guitar/add', /*adminSessionCheck,*/ adminProductsController.addGuitar);
 //POST - Crea guitarra en la DB
 router.post('/guitars', uploadFile.array('image'), guitarValidator, adminProductsController.createGuitar);
 

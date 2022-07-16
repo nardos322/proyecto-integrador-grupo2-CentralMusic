@@ -1,3 +1,6 @@
+import {createImagePreview} from './imagesPreview.js'
+const formData = new FormData()
+
 window.addEventListener('load', () => {
 const $nameProduct = document.querySelector('#nameProduct');
 const $nameProductError = document.querySelector('#nameProductError');
@@ -20,6 +23,7 @@ const $materialFretboardError = document.querySelector('#materialFretboardError'
 const $bodyFinish = document.querySelector('#bodyFinish');
 const $bodyFinishError = document.querySelector('#bodyFinishError');
 const $image = document.querySelector('#image');
+const $imagesPreview = document.querySelector('#images-preview');
 const $imageError = document.querySelector('#imageError');
 const $description = document.querySelector('#description');
 const $descriptionError = document.querySelector('#descriptionError');
@@ -31,6 +35,8 @@ const regEx = {
     text: /^[A-ZÑa-zñáéíóúÁÉÍÓÚ'° ]*$/,
     price: /^\d*\.\d+$/,
 };
+
+
 
 
 $nameProduct.addEventListener('blur', () => {
@@ -242,9 +248,69 @@ $materialFretboard.addEventListener('blur', () => {
             $materialFretboardError.innerHTML = 'Este campo no puede estar vacio';
             $materialFretboardError.classList.add('text-danger');
             $materialFretboard.classList.remove('is-valid');
-            $materialFretboard.classList.add('is-invalid')
+            $materialFretboard.classList.add('is-invalid');
+            break;
+        case !regEx.text.test($materialFretboard.value) || $materialFretboard.value.length < 5:
+            $materialFretboardError.innerHTML = 'Ingrese un formato valido, minimo 5 caracteres';
+            $materialFretboardError.classList.add('text-danger');
+            $materialFretboard.classList.remove('is-valid');
+            $materialFretboard.classList.add('is-invalid');
+            break;
+        default:
+            $materialFretboardError.innerHTML = '';
+            $materialFretboardError.classList.remove('text-danger');
+            $materialFretboard.classList.remove('is-invalid');
+            $materialFretboard.classList.add('is-valid');
+            break;        
+    }
+});
+
+$bodyFinish.addEventListener('blur', () => {
+    switch(true){
+        case !$bodyFinish.value.trim():
+            $bodyFinishError.innerHTML = 'Este campo no puede estar vacio';
+            $bodyFinishError.classList.add('text-danger');
+            $bodyFinish.classList.remove('is-valid');
+            $bodyFinish.classList.add('is-invalid');
+            break;
+        case !regEx.text.test($bodyFinish.value) || $bodyFinish.value.length < 5:
+            $bodyFinishError.innerHTML = 'Introduzca un formato valido, minimo 5 caracteres';
+            $bodyFinishError.classList.add('text-danger');
+            $bodyFinish.classList.remove('is-valid');
+            $bodyFinish.classList.add('is-invalid');
+            break;
+        default:
+            $bodyFinishError.innerHTML = '';
+            $bodyFinishError.classList.remove('text-danger');
+            $bodyFinish.classList.remove('is-invalid');
+            $bodyFinish.classList.add('is-valid');
+            break        
     }
 })
+
+$image.addEventListener('change', (e) => {
+    
+    for(let i = 0; $image.files.length; i++){
+        let imagePreview_id = Math.floor(Math.random() * 3000) + '_' + Date.now();
+    
+        createImagePreview($image, i, imagePreview_id);
+        formData.append(imagePreview_id, $image.files[i]);
+        console.log($image.files)
+        console.log(formData.value)
+    
+        
+     
+        
+        
+
+    }
+    e.target.value = '';
+   
+    
+})
+
+
+
 
 
 console.log($inputs)
