@@ -4,7 +4,6 @@ const formData = new FormData()
 
 let createImagePreview = function($image, i, imagePreview_id){
 
- 
     let imagePreview = document.createElement('div');
     imagePreview.classList.add('image-preview', imagePreview_id);
     imagePreview.dataset.id = imagePreview_id;
@@ -26,14 +25,18 @@ let createCloseButton = function(imagePreview_id){
    
 }
 
-document.body.addEventListener('click', function (e) {
-    if ( e.target.classList.contains('close-button') ) {
-        e.target.parentNode.remove();
-        formData.delete(e.target.parentNode.dataset.id)
-        console.log($image.files)
+
+var clearFormData = function () {
+    for ( var key of formData.keys() ) {
+        formData.delete(key);
     }
-});
+
+    document.querySelectorAll('.image.preview').forEach(function (image) {
+        image.remove();
+    });
+}
 
 
 
-export {createImagePreview}
+
+export {createImagePreview, clearFormData}

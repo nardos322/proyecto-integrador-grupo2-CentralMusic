@@ -25,11 +25,11 @@ router.get('/cables', /*adminSessionCheck,*/ adminController.cables)
 //GET - Lista de productos 
 router.get('/products', /*adminSessionCheck,*/ adminProductsController.list);
 //GET - detalle de producto vista admin
-router.get('/product/detail/:id', adminSessionCheck, adminProductsController.detail);
+router.get('/product/detail/:id', /*adminSessionCheck,*/ adminProductsController.detail);
 //GET envia vista de formulario para agregar una guitarra
 router.get('/products/guitar/add', /*adminSessionCheck,*/ adminProductsController.addGuitar);
 //POST - Crea guitarra en la DB
-router.post('/guitars', uploadFile.array('image'), guitarValidator, adminProductsController.createGuitar);
+router.post('/guitars', uploadFile.array('image'), /*guitarValidator,*/ adminProductsController.createGuitar);
 
 //GET envia la vista de edicion de guitarra
 router.get('/products/guitar/edit/:id', adminSessionCheck, adminProductsController.editGuitar);

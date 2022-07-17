@@ -71,7 +71,7 @@ const adminProductsController = {
 
 
         if (errors.isEmpty()) {
-
+            return res.send(req.files)
             db.Product.create({
 
                 price: req.body.price,
@@ -82,6 +82,7 @@ const adminProductsController = {
                 marcas_id: req.body.marca,
             })
                 .then(product => {
+                    
                     db.GuitarDetail.create({
 
                         model: req.body.model,

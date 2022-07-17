@@ -1,4 +1,4 @@
-import {createImagePreview} from './imagesPreview.js'
+import {createImagePreview, clearFormData} from './imagesPreview.js'
 const formData = new FormData()
 
 window.addEventListener('load', () => {
@@ -25,6 +25,7 @@ const $bodyFinishError = document.querySelector('#bodyFinishError');
 const $image = document.querySelector('#image');
 const $imagesPreview = document.querySelector('#images-preview');
 const $imageError = document.querySelector('#imageError');
+const $stock = document.querySelector('#stock')
 const $description = document.querySelector('#description');
 const $descriptionError = document.querySelector('#descriptionError');
 const $formAddGuitar = document.querySelector('#formAddGuitar');
@@ -38,6 +39,7 @@ const regEx = {
 
 
 
+/*
 
 $nameProduct.addEventListener('blur', () => {
     switch(true){
@@ -286,46 +288,78 @@ $bodyFinish.addEventListener('blur', () => {
             $bodyFinish.classList.add('is-valid');
             break        
     }
-})
+})*/
 
 $image.addEventListener('change', (e) => {
-    /*
-        for(let i = 0; $image.files.length; i++){
-            
-                let imagePreview_id = Math.floor(Math.random() * 3000) + '_' + Date.now();
-                createImagePreview($image, i, imagePreview_id);
-               
-            
-            
-        
-    }*/
+    
 
     if($image.files.length){
         for(let i in $image.files){
             if($image.files[i] instanceof File){
                 let imagePreview_id = Math.floor(Math.random() * 3000) + '_' + Date.now();
                 createImagePreview($image, i, imagePreview_id);
-                console.log($image.files)
-             
+                formData.append(imagePreview_id, $image.files[i]);
+
+               // console.log($image.files)
+                
+                
+                
+                
             }
-            
+  
         }
-    
 
     }
-    
-
-        
-      
-        
-
+    for(let value of formData.values()){
+        console.log(value)
+    }
     
    
-   
     
+});
+
+$stock.addEventListener('click', e => {
+    e.preventDefault();
+    fetch('http://localhost:3000/admin/guitars', {
+        method: 'POST',
+        body: 'holaaa'
+    })
+    .then(res => res.json())
+    .then(data => {
+        console.log(data)
+    })
+    .catch(error => console.log(error))
 })
 
 
+document.body.addEventListener('click', function (e) {
+    if (e.target.classList.contains('close-button') ) {
+        e.target.parentNode.remove();
+        formData.delete(e.target.parentNode.dataset.id)
+        for(let value of formData.values()){
+            console.log(value)
+        }
+        
+    }
+    
+});    
+
+
+$formAddGuitar.addEventListener('submit', e => {
+    e.preventDefault()
+    const form = new FormData($formAddGuitar)
+    fetch('http://localhost:3000/admin/guitars', {
+        method: 'POST',
+        body: form
+    })
+    .then(res => res.json())
+
+    .then(data => {
+        console.log(data)
+    })
+    .catch(error => console.log(error))
+        
+})
 
 
 
