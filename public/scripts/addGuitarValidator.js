@@ -289,22 +289,38 @@ $bodyFinish.addEventListener('blur', () => {
 })
 
 $image.addEventListener('change', (e) => {
-    
-    for(let i = 0; $image.files.length; i++){
-        let imagePreview_id = Math.floor(Math.random() * 3000) + '_' + Date.now();
-    
-        createImagePreview($image, i, imagePreview_id);
-        formData.append(imagePreview_id, $image.files[i]);
-        console.log($image.files)
-        console.log(formData.value)
-    
+    /*
+        for(let i = 0; $image.files.length; i++){
+            
+                let imagePreview_id = Math.floor(Math.random() * 3000) + '_' + Date.now();
+                createImagePreview($image, i, imagePreview_id);
+               
+            
+            
         
-     
-        
-        
+    }*/
+
+    if($image.files.length){
+        for(let i in $image.files){
+            if($image.files[i] instanceof File){
+                let imagePreview_id = Math.floor(Math.random() * 3000) + '_' + Date.now();
+                createImagePreview($image, i, imagePreview_id);
+                console.log($image.files)
+             
+            }
+            
+        }
+    
 
     }
-    e.target.value = '';
+    
+
+        
+      
+        
+
+    
+   
    
     
 })

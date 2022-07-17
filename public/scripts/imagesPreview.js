@@ -3,21 +3,17 @@ const $imagesPreview = document.querySelector('#images-preview')
 const formData = new FormData()
 
 let createImagePreview = function($image, i, imagePreview_id){
+
+ 
     let imagePreview = document.createElement('div');
     imagePreview.classList.add('image-preview', imagePreview_id);
     imagePreview.dataset.id = imagePreview_id;
-    if($image.files.length){
-        for(let k in $image.files){
-            if($image.files[k] instanceof File){
-                imagePreview.setAttribute('style', `background-image: url(${URL.createObjectURL($image.files[i])})`);
-                $imagesPreview.appendChild(imagePreview);
-                createCloseButton(imagePreview_id)
-    
-            }
-        }
-    }
+    imagePreview.setAttribute('style', `background-image: url(${URL.createObjectURL($image.files[i])})`);
+    $imagesPreview.appendChild(imagePreview);
+    createCloseButton(imagePreview_id)
+
+       
   
-    
 
    
 }
