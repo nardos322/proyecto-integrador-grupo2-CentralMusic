@@ -9,12 +9,9 @@ let createImagePreview = function($image, i, imagePreview_id){
     imagePreview.dataset.id = imagePreview_id;
     imagePreview.setAttribute('style', `background-image: url(${URL.createObjectURL($image.files[i])})`);
     $imagesPreview.appendChild(imagePreview);
-    createCloseButton(imagePreview_id)
+    createCloseButton(imagePreview_id);
 
        
-  
-
-   
 }
 
 let createCloseButton = function(imagePreview_id){

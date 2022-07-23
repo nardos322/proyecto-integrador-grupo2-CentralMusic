@@ -1,5 +1,5 @@
 import {createImagePreview, clearFormData} from './imagesPreview.js'
-const formData = new FormData()
+
 
 window.addEventListener('load', () => {
 const $nameProduct = document.querySelector('#nameProduct');
@@ -31,10 +31,13 @@ const $descriptionError = document.querySelector('#descriptionError');
 const $formAddGuitar = document.querySelector('#formAddGuitar');
 const $submitError = document.querySelector('#submitError');
 const $inputs = document.querySelectorAll('#formAddGuitar input');
+const formData = new FormData()
+
 const regEx = {
     textAndNumber : /^[A-Za-z0-9\s]+$/g,
     text: /^[A-ZÑa-zñáéíóúÁÉÍÓÚ'° ]*$/,
     price: /^\d*\.\d+$/,
+    image: /jpg|JPG|gif|GIF|png|PNG|jpeg|JPEG/,
 };
 
 
@@ -289,81 +292,130 @@ $bodyFinish.addEventListener('blur', () => {
             break        
     }
 })*/
+$image.addEventListener('blur', () => {
+    switch(true){
+        case $image.files.length === 0:
+            $imageError.innerHTML = 'Debes agregar una imagen';
+            $imageError.classList.add('text-danger');
+            $image.classList.add('is-invalid');
+            $image.classList.remove('is-valid');
+            break;
+    }        
+})
+
 
 $image.addEventListener('change', (e) => {
-    
-
-    if($image.files.length){
-        for(let i in $image.files){
-            if($image.files[i] instanceof File){
-                let imagePreview_id = Math.floor(Math.random() * 3000) + '_' + Date.now();
-                createImagePreview($image, i, imagePreview_id);
-                formData.append(imagePreview_id, $image.files[i]);
-
-               // console.log($image.files)
-                
-                
-                
-                
+    let imagesPreview = document.querySelectorAll('.image-preview')
+    switch(true){
+        case $image.files.length === 0:
+            $imageError.innerHTML = 'Debes agregar una imagen';
+            $imageError.classList.add('text-danger');
+            $image.classList.add('is-invalid');
+            $image.classList.remove('is-valid');
+            imagesPreview.forEach(images => {
+                images.remove()
+            })
+            break;
+        case !regEx.image.test($image.value):
+            alert('Solo archivos con estas extensiones .jpeg/.jpg/.png/.gif only.');
+            $image.classList.add('is-invalid');
+            $image.classList.remove('is-valid');
+            imagesPreview.forEach(images => {
+                images.remove()
+            })
+            $image.value = '';
+            break;
+        default:
+            if($image.files.length){
+                for(let i in $image.files){
+                    if($image.files[i] instanceof File){
+                        let imagePreview_id = Math.floor(Math.random() * 3000) + '_' + Date.now();
+                        createImagePreview($image, i, imagePreview_id);
+                        
+                        formData.append(imagePreview_id, $image.files[i]);
+                       
+         
+                    }
+          
+                }
             }
-  
-        }
+            $image.classList.remove('is-invalid');
+            $image.classList.add('is-valid');
+            $imageError.innerHTML = ''
+            $image.value = ''
+            break;     
+    }
+    console.log($image.files)
+    for(let pair of formData.entries()){
+        console.log(pair[0]);
+        console.log(pair[1]);
+    }
 
-    }
-    for(let value of formData.values()){
-        console.log(value)
-    }
     
-   
+
     
 });
 
-$stock.addEventListener('click', e => {
-    e.preventDefault();
-    fetch('http://localhost:3000/admin/guitars', {
-        method: 'POST',
-        body: 'holaaa'
-    })
-    .then(res => res.json())
-    .then(data => {
-        console.log(data)
-    })
-    .catch(error => console.log(error))
+$imagesPreview.addEventListener('change', e => {
+    console.log($imagesPreview)
 })
+
 
 
 document.body.addEventListener('click', function (e) {
+    let imagesPreview = document.querySelectorAll('.image-preview')
     if (e.target.classList.contains('close-button') ) {
         e.target.parentNode.remove();
         formData.delete(e.target.parentNode.dataset.id)
-        for(let value of formData.values()){
-            console.log(value)
-        }
-        
+        console.log(imagesPreview)
+       
     }
+    /*
+    for(let pair of formData.entries()){
+        console.log(pair[0]);
+        console.log(pair[1]);
+    }*/
+
     
+
 });    
 
 
-$formAddGuitar.addEventListener('submit', e => {
-    e.preventDefault()
-    const form = new FormData($formAddGuitar)
+const $upload = document.querySelector('#upload')
+const form = new FormData($formAddGuitar)
+
+$upload.addEventListener('click', e => {
+    
+    e.preventDefault();
     fetch('http://localhost:3000/admin/guitars', {
         method: 'POST',
-        body: form
+        body: formData
     })
     .then(res => res.json())
-
     .then(data => {
         console.log(data)
     })
     .catch(error => console.log(error))
-        
+
 })
 
 
+console.log(formData.get('marca'))
 
-console.log($inputs)
+$formAddGuitar.addEventListener('submit', e => {
+    
+    e.preventDefault()
+    fetch('http://localhost:3000/admin/guitars', {
+        method: 'POST',
+        body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+        console.log(data)
+    })
+    .catch(error => console.log(error))
+})
+
 
 
 

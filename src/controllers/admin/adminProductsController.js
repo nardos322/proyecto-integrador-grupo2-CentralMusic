@@ -71,7 +71,8 @@ const adminProductsController = {
 
 
         if (errors.isEmpty()) {
-            return res.send(req.files)
+            
+            return res.send(req.body)
             db.Product.create({
 
                 price: req.body.price,
