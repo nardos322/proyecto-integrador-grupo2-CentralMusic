@@ -72,7 +72,8 @@ const adminProductsController = {
 
         if (errors.isEmpty()) {
             
-            return res.send(req.body)
+            let images = req.files
+            return res.send(images)
             db.Product.create({
 
                 price: req.body.price,

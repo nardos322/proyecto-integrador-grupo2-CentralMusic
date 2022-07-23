@@ -29,7 +29,7 @@ router.get('/product/detail/:id', /*adminSessionCheck,*/ adminProductsController
 //GET envia vista de formulario para agregar una guitarra
 router.get('/products/guitar/add', /*adminSessionCheck,*/ adminProductsController.addGuitar);
 //POST - Crea guitarra en la DB
-router.post('/guitars', uploadFile.any('image'), /*guitarValidator,*/ adminProductsController.createGuitar);
+router.post('/guitars', uploadFile.any(), /*guitarValidator,*/ adminProductsController.createGuitar);
 
 //GET envia la vista de edicion de guitarra
 router.get('/products/guitar/edit/:id', adminSessionCheck, adminProductsController.editGuitar);

@@ -356,6 +356,8 @@ $image.addEventListener('change', (e) => {
     
 });
 
+
+
 $imagesPreview.addEventListener('change', e => {
     console.log($imagesPreview)
 })
@@ -382,28 +384,15 @@ document.body.addEventListener('click', function (e) {
 
 
 const $upload = document.querySelector('#upload')
-const form = new FormData($formAddGuitar)
+
+
+
+
+
+
+console.log($formAddGuitar.length)
 
 $upload.addEventListener('click', e => {
-    
-    e.preventDefault();
-    fetch('http://localhost:3000/admin/guitars', {
-        method: 'POST',
-        body: formData
-    })
-    .then(res => res.json())
-    .then(data => {
-        console.log(data)
-    })
-    .catch(error => console.log(error))
-
-})
-
-
-console.log(formData.get('marca'))
-
-$formAddGuitar.addEventListener('submit', e => {
-    
     e.preventDefault()
     fetch('http://localhost:3000/admin/guitars', {
         method: 'POST',
@@ -412,8 +401,33 @@ $formAddGuitar.addEventListener('submit', e => {
     .then(res => res.json())
     .then(data => {
         console.log(data)
+        clearFormData();
+        $upload.innerHTML = 'Imagenes subidas!'
     })
     .catch(error => console.log(error))
+})
+console.log($image)
+
+$formAddGuitar.addEventListener('submit', e => {
+    
+    e.preventDefault();
+    /*
+    fetch('http://localhost:3000/admin/guitars', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+        console.log(data)
+        clearFormData();
+        $upload.innerHTML = 'Imagenes subidas!'
+    })
+    .catch(error => console.log(error))*/
+
+    if($formAddGuitar.length > 1){
+        $formAddGuitar.submit()
+    }
 })
 
 
