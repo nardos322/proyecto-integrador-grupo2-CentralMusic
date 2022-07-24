@@ -246,10 +246,10 @@ $formRegister.addEventListener('submit', e => {
             errors.push(input)
             
         }
-
+        
 
    })
-
+   
     if(errors.length == 0){
         $formRegister.submit()
     }else{

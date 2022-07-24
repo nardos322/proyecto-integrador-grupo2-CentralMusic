@@ -64,6 +64,7 @@ body .input-container1 .is-invalid {
 
 .errors {
     width: 300px;
+    margin: 0 auto;
 }
 
 .text-danger {
@@ -86,7 +87,7 @@ body .input-container1 .is-invalid {
 
 #images-preview {
     height: 150px;
-    width: 460px;
+    width: 500px;
 }
 
 .image-preview{

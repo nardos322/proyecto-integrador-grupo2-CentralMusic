@@ -1,4 +1,4 @@
-import {createImagePreview, clearFormData} from './imagesPreview.js'
+import {createImagePreview} from './imagesPreview.js'
 
 
 window.addEventListener('load', () => {
@@ -22,6 +22,8 @@ const $materialFretboard = document.querySelector('#materialFretboard');
 const $materialFretboardError = document.querySelector('#materialFretboardError');
 const $bodyFinish = document.querySelector('#bodyFinish');
 const $bodyFinishError = document.querySelector('#bodyFinishError');
+const $labelImage = document.querySelector('#labelImage');
+const $labelError = document.querySelector('#labelError')
 const $image = document.querySelector('#image');
 const $imagesPreview = document.querySelector('#images-preview');
 const $imageError = document.querySelector('#imageError');
@@ -31,18 +33,19 @@ const $descriptionError = document.querySelector('#descriptionError');
 const $formAddGuitar = document.querySelector('#formAddGuitar');
 const $submitError = document.querySelector('#submitError');
 const $inputs = document.querySelectorAll('#formAddGuitar input');
-const formData = new FormData()
+
 
 const regEx = {
     textAndNumber : /^[A-Za-z0-9\s]+$/g,
     text: /^[A-ZÑa-zñáéíóúÁÉÍÓÚ'° ]*$/,
     price: /^\d*\.\d+$/,
     image: /jpg|JPG|gif|GIF|png|PNG|jpeg|JPEG/,
+    descripton: /^(.|\s)*[a-zA-Z]+(.|\s)*$/,
 };
 
 
 
-/*
+
 
 $nameProduct.addEventListener('blur', () => {
     switch(true){
@@ -55,6 +58,7 @@ $nameProduct.addEventListener('blur', () => {
         case !regEx.textAndNumber.test($nameProduct.value) || $nameProduct.value.length < 10:
             $nameProductError.innerHTML = 'Ingrese un nombre de producto valido, tiene que tener 10 caracteres minimo';
             $nameProductError.classList.add('text-danger');
+            $nameProduct.classList.remove('is-valid');
             $nameProduct.classList.add('is-invalid');
             console.log(!regEx.textAndNumber.test($nameProduct.value) || $nameProduct.value.length < 10)
             console.log($nameProduct.value.length)
@@ -64,6 +68,7 @@ $nameProduct.addEventListener('blur', () => {
             $nameProductError.classList.remove('text-danger');
             $nameProduct.classList.remove('is-invalid');
             $nameProduct.classList.add('is-valid');
+            break;
 
     }
 });
@@ -291,8 +296,9 @@ $bodyFinish.addEventListener('blur', () => {
             $bodyFinish.classList.add('is-valid');
             break        
     }
-})*/
+})
 $image.addEventListener('blur', () => {
+    let imagesPreview = document.querySelectorAll('.image-preview')
     switch(true){
         case $image.files.length === 0:
             $imageError.innerHTML = 'Debes agregar una imagen';
@@ -300,6 +306,12 @@ $image.addEventListener('blur', () => {
             $image.classList.add('is-invalid');
             $image.classList.remove('is-valid');
             break;
+        case imagesPreview.length > 0:
+            console.log('holaa')
+            imagesPreview.forEach(images => {
+                    images.remove()
+            })
+            break;    
     }        
 })
 
@@ -329,12 +341,8 @@ $image.addEventListener('change', (e) => {
             if($image.files.length){
                 for(let i in $image.files){
                     if($image.files[i] instanceof File){
-                        let imagePreview_id = Math.floor(Math.random() * 3000) + '_' + Date.now();
-                        createImagePreview($image, i, imagePreview_id);
+                        createImagePreview($image, i);
                         
-                        formData.append(imagePreview_id, $image.files[i]);
-                       
-         
                     }
           
                 }
@@ -342,92 +350,115 @@ $image.addEventListener('change', (e) => {
             $image.classList.remove('is-invalid');
             $image.classList.add('is-valid');
             $imageError.innerHTML = ''
-            $image.value = ''
-            break;     
-    }
-    console.log($image.files)
-    for(let pair of formData.entries()){
-        console.log(pair[0]);
-        console.log(pair[1]);
-    }
+            $labelError.innerHTML = ''  
+            break;
+        case imagesPreview.length > 0:
+            imagesPreview.forEach(images => {
+                images.remove()
+            })
+            if($image.files.length){
+                for(let i in $image.files){
+                    if($image.files[i] instanceof File){
+                        createImagePreview($image, i);
+                        
+                        
 
-    
+                    }
+          
+                }
+            }
+            $labelError.innerHTML = ''  
+            
+    }
+     
 
     
 });
 
-
-
-$imagesPreview.addEventListener('change', e => {
-    console.log($imagesPreview)
-})
-
-
-
-document.body.addEventListener('click', function (e) {
+$labelImage.addEventListener('mouseover', () => {
     let imagesPreview = document.querySelectorAll('.image-preview')
-    if (e.target.classList.contains('close-button') ) {
-        e.target.parentNode.remove();
-        formData.delete(e.target.parentNode.dataset.id)
-        console.log(imagesPreview)
-       
+    switch(true){
+        case imagesPreview.length == 0:
+            $labelError.innerHTML = 'Para agregar varias imagenes las tenes que preseleccionar todas a la vez, maximo 4 imagenes'
+            $labelError.classList.add('text-information');
+            break;
+        default:
+            $labelError.innerHTML = ''    
     }
-    /*
-    for(let pair of formData.entries()){
-        console.log(pair[0]);
-        console.log(pair[1]);
-    }*/
-
     
-
-});    
-
-
-const $upload = document.querySelector('#upload')
-
-
-
-
-
-
-console.log($formAddGuitar.length)
-
-$upload.addEventListener('click', e => {
-    e.preventDefault()
-    fetch('http://localhost:3000/admin/guitars', {
-        method: 'POST',
-        body: formData
-    })
-    .then(res => res.json())
-    .then(data => {
-        console.log(data)
-        clearFormData();
-        $upload.innerHTML = 'Imagenes subidas!'
-    })
-    .catch(error => console.log(error))
 })
-console.log($image)
+
+$labelImage.addEventListener('mouseout', () => {
+    $labelError.innerHTML = ''
+})
+
+
+$description.addEventListener('blur', e => {
+    switch(true){
+        case !$description.value.trim():
+            $descriptionError.innerHTML = 'Este campo no puede quedar vacio, minimo 20 caracteres'
+            $descriptionError.classList.add('text-danger');
+            $description.classList.add('is-invalid');
+            $description.classList.remove('is-valid');
+            break;
+        case !regEx.descripton.test($description.value) || $description.value.length < 20:
+            $descriptionError.innerHTML = 'Ingrese una description valida, minimo 20 caracteres';
+            $descriptionError.classList.add('text-danger');
+            $description.classList.add('is-invalid');
+            $description.classList.remove('is-valid');
+            console.log($description.value.length)
+            break; 
+        default:
+            $descriptionError.innerHTML = '';
+            $descriptionError.classList.remove('text-danger');
+            $description.classList.remove('is-invalid');
+            $description.classList.add('is-valid');
+            break;
+
+    }
+})
+
+
+
 
 $formAddGuitar.addEventListener('submit', e => {
     
     e.preventDefault();
-    /*
-    fetch('http://localhost:3000/admin/guitars', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: formData
-    })
-    .then(res => res.json())
-    .then(data => {
-        console.log(data)
-        clearFormData();
-        $upload.innerHTML = 'Imagenes subidas!'
-    })
-    .catch(error => console.log(error))*/
+    let errors = [];
+    for(let i = 0; i < $inputs.length; i++){
+        if($inputs[i].value == '' && $inputs[i].name !== 'stock' && ($description.value == '' || $description.classList.contains('is-invalid')) && $image.files.length == 0 && $marca.value.length == 0) {
+            $inputs[i].classList.add('is-invalid');
+            $description.classList.add('is-invalid');
+            $labelImage.classList.add('is-invalid');
+            $marca.classList.add('is-invalid');
+            $submitError.innerHTML = 'Los campos señalados son obligatorios';
+            $submitError.classList.add('text-danger');
+            
+        }
 
-    if($formAddGuitar.length > 1){
-        $formAddGuitar.submit()
     }
+
+    
+    $inputs.forEach(input => {
+        if(input.classList.contains('is-invalid')){
+            errors.push(input)
+        }
+
+    });
+   if($marca.classList.contains('is-invalid')){
+        errors.push($marca)
+   };
+
+   if($description.classList.contains('is-invalid')){
+        errors.push($description)
+   }
+   console.log(errors)
+   if(errors.length == 0){
+        $formAddGuitar.submit()
+   }else{
+        console.log( `hay ${errors.length} errores`);
+        $submitError.innerHTML = 'Hay errores';
+}
 })
 
 

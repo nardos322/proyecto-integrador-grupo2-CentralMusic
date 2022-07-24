@@ -63,6 +63,7 @@ const adminProductsController = {
             })
 
     },
+
     // Recibe los datos del form de creacion y guarda el producto en la DB
 
     createGuitar: (req, res) => {
@@ -71,9 +72,7 @@ const adminProductsController = {
 
 
         if (errors.isEmpty()) {
-            
-            let images = req.files
-            return res.send(images)
+           
             db.Product.create({
 
                 price: req.body.price,
