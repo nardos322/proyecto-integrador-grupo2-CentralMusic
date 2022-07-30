@@ -53,6 +53,7 @@
     height: 100%;
 }
 
+
 body .input-container1 .is-valid{
     border: 1px solid green
 }
@@ -87,8 +88,15 @@ body .input-container1 .is-invalid {
 
 #images-preview {
     height: 150px;
-    width: 500px;
+    width: 530px;
 }
+
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
 
 .image-preview{
     width: 120px;

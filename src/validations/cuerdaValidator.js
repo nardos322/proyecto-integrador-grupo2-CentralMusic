@@ -11,8 +11,6 @@ let cuerdaValidator = [
         .notEmpty().withMessage('Debe seleccionar una marca'),
     check('strings')
         .notEmpty().withMessage('Debe ingresar cantidad de cuerdas'),
-    check('tension')
-        .notEmpty().withMessage('Debe ingresar la tension'),
     check('material')
         .notEmpty().withMessage('Debe ingresar tipo de material'),
     check('calibre')

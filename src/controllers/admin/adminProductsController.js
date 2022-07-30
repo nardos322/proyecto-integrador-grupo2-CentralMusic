@@ -139,7 +139,7 @@ const adminProductsController = {
         let idProduct = +req.params.id;
         // 2- Buscar el producto a editar
         let listaMarcas;
-
+        
         db.Marca.findAll()
             .then(marcas => {
                 listaMarcas = marcas

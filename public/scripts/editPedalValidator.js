@@ -29,8 +29,8 @@ window.addEventListener('load', () => {
     const $description = document.querySelector('#description');
     const $descriptionError = document.querySelector('#descriptionError');
     const $submitError = document.querySelector('#submitError');
-    const $inputs = document.querySelectorAll('#formAddPedal input');
-    const $formAddPedal = document.querySelector('#formAddPedal');
+    const $inputs = document.querySelectorAll('#formEditPedal input');
+    const $formEditPedal = document.querySelector('#formEditPedal');
     
     const regEx = {
         textAndNumber : /^[A-Za-z0-9\s]+$/g,
@@ -417,16 +417,14 @@ $description.addEventListener('blur', e => {
     }
 });
 
-$formAddPedal.addEventListener('submit', e => {
+$formEditPedal.addEventListener('submit', e => {
     
     e.preventDefault();
     let errors = [];
     for(let i = 0; i < $inputs.length; i++){
-        if($inputs[i].value == '' && $inputs[i].name !== 'stock' && ($description.value == '' || $description.value.length > 0 ) && $image.files.length == 0 && ($marca.value.length == 0 || $marca.value.length !== 0)) {
+        if($inputs[i].value == '' && $inputs[i].name !== 'stock' && ($description.value == '' || $description.value.length > 0 )) {
             $inputs[i].classList.add('is-invalid');
             $description.classList.toggle('is-invalid', $description.value == '' || $description.classList.contains('is-invalid'));
-            $labelImage.classList.add('is-invalid');
-            $marca.classList.toggle('is-invalid', $marca.value == 0);
             $submitError.innerHTML = 'Los campos señalados son obligatorios';
             $submitError.classList.add('text-danger');
             
@@ -436,7 +434,7 @@ $formAddPedal.addEventListener('submit', e => {
 
     
     $inputs.forEach(input => {
-        if(input.classList.contains('is-invalid')){
+        if(input.classList.contains('is-invalid') && input.name !== 'image'){
             errors.push(input)
         }
 
@@ -456,11 +454,11 @@ $formAddPedal.addEventListener('submit', e => {
         $submitError.innerHTML = 'Hay errores';
 }
 
-})
+});
 
 
 
-console.log($imageError)
+
 
 
 

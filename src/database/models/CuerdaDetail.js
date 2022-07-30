@@ -11,10 +11,6 @@ module.exports = (sequelize, dataTypes) => {
             type: dataTypes.INTEGER(11),
             
         },
-        tension: {
-            type: dataTypes.STRING(45),
-            
-        },
         materiales: {
             type: dataTypes.STRING(45),
             

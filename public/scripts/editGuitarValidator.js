@@ -30,9 +30,9 @@ const $imageError = document.querySelector('#imageError');
 const $stock = document.querySelector('#stock')
 const $description = document.querySelector('#description');
 const $descriptionError = document.querySelector('#descriptionError');
-const $formAddGuitar = document.querySelector('#formAddGuitar');
+const $formEditGuitar = document.querySelector('#formEditGuitar');
 const $submitError = document.querySelector('#submitError');
-const $inputs = document.querySelectorAll('#formAddGuitar input');
+const $inputs = document.querySelectorAll('#formEditGuitar input');
 
 
 const regEx = {
@@ -421,16 +421,14 @@ $description.addEventListener('blur', e => {
 
 
 
-$formAddGuitar.addEventListener('submit', e => {
+$formEditGuitar.addEventListener('submit', e => {
     
     e.preventDefault();
     let errors = [];
     for(let i = 0; i < $inputs.length; i++){
-        if($inputs[i].value == '' && $inputs[i].name !== 'stock' && ($description.value == '' || $description.value.length > 0 ) && $image.files.length == 0 && ($marca.value.length == 0 || $marca.value.length !== 0)) {
+        if($inputs[i].value == '' && $inputs[i].name !== 'stock' && ($description.value == '' || $description.value.length > 0 )) {
             $inputs[i].classList.add('is-invalid');
             $description.classList.toggle('is-invalid', $description.value == '' || $description.classList.contains('is-invalid'));
-            $labelImage.classList.add('is-invalid');
-            $marca.classList.toggle('is-invalid', $marca.value == 0);
             $submitError.innerHTML = 'Los campos señalados son obligatorios';
             $submitError.classList.add('text-danger');
             
@@ -438,23 +436,20 @@ $formAddGuitar.addEventListener('submit', e => {
 
     }
 
-    
+    console.log($inputs)
     $inputs.forEach(input => {
-        if(input.classList.contains('is-invalid')){
+        if(input.classList.contains('is-invalid') && input.name !== 'image' ){
             errors.push(input)
         }
 
     });
-   if($marca.classList.contains('is-invalid')){
-        errors.push($marca)
-   };
-
+  
    if($description.classList.contains('is-invalid')){
         errors.push($description)
    }
    console.log(errors)
    if(errors.length == 0){
-        $formAddGuitar.submit()
+        $formEditGuitar.submit()
    }else{
         console.log( `hay ${errors.length} errores`);
         $submitError.innerHTML = 'Hay errores';

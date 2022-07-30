@@ -6,7 +6,7 @@
     <%-include('../partials/header')  %>    
     
     
-    <form action="/admin/accesories" method="POST" enctype="multipart/form-data" class="form-addProduct">
+    <form action="/admin/accesories" method="POST" enctype="multipart/form-data" class="form-addProduct" id="formAddAccesory" >
         
         <div class="form-container1">
             <div class="new-products-separador"></div>
@@ -18,6 +18,9 @@
                     <% if (locals.errors && errors.nameProduct) { %>
                         <span class="error-message1"><%= errors.nameProduct.msg %></span>
                     <% } %>
+                    <div class="errors">
+                        <small id="nameProductError"></small>
+                    </div>
                 </div>
                 <div class="input-container1">
                     <label for="marca">Seleccione marca</label>
@@ -31,6 +34,9 @@
                     <% if (locals.errors && errors.marca) { %>
                         <span class="error-message1"><%= errors.marca.msg %></span>
                     <% } %>
+                    <div class="errors">
+                        <small id="marcaError"></small>
+                    </div>
                     
                  </div>
                 <div class="input-container1">
@@ -39,7 +45,9 @@
                     <% if (locals.errors && errors.strings) { %>
                         <span class="error-message1"><%= errors.strings.msg %></span>
                     <% } %>
-                    
+                    <div class="errors">
+                        <small id="stringsError"></small>
+                    </div>
                 </div>
                 <div class="input-container1">
                     <label for="price">Precio</label>
@@ -47,15 +55,9 @@
                     <% if (locals.errors && errors.price) { %>
                         <span class="error-message1"><%= errors.price.msg  %> </span>
                     <% } %>
-                    
-                </div>
-                <div class="input-container1">
-                    <label for="tension">Tension</label>
-                    <input type="text" name="tension" id="tension" placeholder="Ej: Media" class="input-style1" value="<%= locals.old ? old.tension : null  %>">
-                    <% if (locals.errors && errors.tension) { %>
-                        <span class="error-message1"><%= errors.tension.msg %></span>
-            
-                    <% } %>
+                    <div class="errors">
+                        <small id="priceError"></small>
+                    </div>
                 </div>
                 <div class="input-container1">
                     <label for="material">Material </label>
@@ -64,6 +66,9 @@
                         <span class="error-message1"><%= errors.material.msg  %></span>
             
                     <% } %>
+                    <div class="errors">
+                        <small id="materialError"></small>
+                    </div>
                 </div>
                 <div class="input-container1">
                     <label for="calibre">Calibre</label>
@@ -71,15 +76,25 @@
                     <% if (locals.errors && errors.calibre) { %>
                         <span class="error-message1"><%= errors.calibre.msg  %> </span>
                     <% } %>
-                    
+                    <div class="errors">
+                        <small id="calibreError"></small>
+                    </div>
                 </div>
                 <div class="input-container1 file-container">
-                    <label for="image"  class="btn-file">Agregar imagenes</label>
+                    <label for="image"  class="btn-file" id="labelImage" >Agregar imagenes</label>
+                    <div class="errors">
+                        <small id="labelError"></small>
+                    </div>
                     <input type="file" name="image" id="image" accept=".png, .jpg, .svg" class="file" multiple>
+                    <div id="images-preview">
+
+                    </div>
                     <% if (locals.errors && errors.image) { %>
                         <span class="error-message1"><%= errors.image.msg %></span>
                     <% } %>
-                    
+                    <div class="errors">
+                        <small id="imageError"></small>
+                    </div>     
                 </div>
                 <div class="btn-switch input-container1">
                      
@@ -94,14 +109,21 @@
                 <% if (locals.errors && errors.description) { %>
                     <span class="error-message1"><%= errors.description.msg %></span>
                 <% } %>
+                <div class="errors">
+                    <small id="descriptionError"></small>
+                </div>
             </div>
             <div class="btn-container">
                 <button class="btn-style" type="submit" >Crear</button>
+                <div class="errors">
+                    <small id="submitError"></small>
+                </div>
             </div>
         </div>
     </form>
 
     <%-include('../partials/footer')  %> 
-    
+    <script src="/scripts/imagesPreview.js" type="module"></script>
+    <script src="/scripts/addAccesoryValidator.js" type="module"></script>
 </body>
 </html>
