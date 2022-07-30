@@ -74,7 +74,7 @@
                 </div>
                 <div class="input-container1">
                     <label for="instruments">Instrumentos compatibles</label>
-                    <input type="text" name="instruments" id="instuments" placeholder="Ej: Guitarra Electrica" class="input-style1" value="<%= locals.old ? old.instruments : null  %>">
+                    <input type="text" name="instruments" id="instruments" placeholder="Ej: Guitarra Electrica" class="input-style1" value="<%= locals.old ? old.instruments : null  %>">
                     <% if (locals.errors && errors.instruments) { %>
                         <span class="error-message1"><%= errors.instruments.msg %></span>
             
@@ -127,7 +127,7 @@
                     </div>
                 </div>
                 <div class="input-container1 file-container">
-                    <label for="image"  class="btn-file">Agregar imagenes</label>
+                    <label for="image"  id="labelImage" class="btn-file">Agregar imagenes</label>
                     <div class="errors">
                         <small id="labelError"></small>
                     </div>
@@ -139,6 +139,9 @@
                     <% if (locals.errors && errors.image) { %>
                         <span class="error-message1"><%= errors.image.msg %></span>
                     <% } %>
+                    <div class="errors">
+                        <small id="imageError"></small>
+                    </div>    
                     
                 </div>
                
