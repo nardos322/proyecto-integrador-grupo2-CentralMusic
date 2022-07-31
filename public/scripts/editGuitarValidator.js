@@ -449,7 +449,8 @@ $formEditGuitar.addEventListener('submit', e => {
    }
    console.log(errors)
    if(errors.length == 0){
-        $formEditGuitar.submit()
+        $formEditGuitar.submit();
+        $submitError.innerHTML = '';
    }else{
         console.log( `hay ${errors.length} errores`);
         $submitError.innerHTML = 'Hay errores';

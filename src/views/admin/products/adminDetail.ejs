@@ -9,8 +9,16 @@
                 <section class="product-view">
                     <h1><%= product.name  %> </h1>
                     <div class="product-view-container">
-                        <div class="img-container">
+                        <div class="img-container" id="img-container" >
                             <img src="/images/products/<%= product.productsImages[0].name_image %>" alt="producto-guitarra">
+                            <div id="images-preview">
+                                <% product.productsImages.forEach(images => { %>
+                                    <div class="image-preview">
+                                        <img src=" /images/products/<%= images.name_image  %>  " alt="">
+                                    </div>
+        
+                                <% }) %>
+                            </div>
                         </div>
                         <div class="details-description">
                             <div>
@@ -131,6 +139,7 @@
                 </section>
             </main>
             
-    <%-include('../partials/footer')  %>     
+    <%-include('../partials/footer')  %>
+    <script src="/scripts/adminDetailProduct.js"></script>     
     </body>
 </html>
