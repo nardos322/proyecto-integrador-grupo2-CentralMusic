@@ -48,6 +48,7 @@ app.use('/', indexRouter); // gestiona Home
 app.use('/products', productsRouter); // gestiona listado, detalle
 app.use('/users', usersRouter); // gestiona login, perfil, registro
 app.use('/admin', adminRouter); // gestiona CRUD de productos 
+// apis routes
 app.use('/apis/users', apiUserRouter);
 app.use('/apis/products', apiProductsRouter);
 

@@ -36,34 +36,34 @@ router.post('/guitars', uploadFile.array('image', 4), guitarValidator, adminProd
 //GET envia la vista de edicion de guitarra
 router.get('/products/guitar/edit/:id', adminSessionCheck, adminProductsController.editGuitar);
 //PUT - actualiza producto en al DB
-router.put('/products/guitar/:id', uploadFile.array('image'), adminProductsController.updateGuitar);
+router.put('/products/guitar/:id', uploadFile.array('image', 4), adminProductsController.updateGuitar);
 
 //GET envia vista de formulario para agregar un accesorio
 router.get('/products/accesory/add', adminSessionCheck, adminProductsController.addAccesory);
 //POST - Crea accesorio en la DB
-router.post('/accesories', uploadFile.array('image'), cuerdaValidator, adminProductsController.createAccesory);
+router.post('/accesories', uploadFile.array('image', 4), cuerdaValidator, adminProductsController.createAccesory);
 //GET envia la vista de edicion del accesorio
 router.get('/products/accesory/edit/:id', adminSessionCheck, adminProductsController.editAccesory);
 //PUT - actualiza accesorio en al DB
-router.put('/products/accesory/:id', uploadFile.array('image'), adminProductsController.updateAccesory);
+router.put('/products/accesory/:id', uploadFile.array('image', 4), adminProductsController.updateAccesory);
 
 
 router.get('/products/pedal/add', adminProductsController.addPedal);
-router.post('/pedals',uploadFile.array('image'), pedalValidator,adminProductsController.createPedal);
+router.post('/pedals',uploadFile.array('image', 4), pedalValidator,adminProductsController.createPedal);
 //GET envia la vista de edicion del pedal
 router.get('/products/pedal/edit/:id', adminSessionCheck, adminProductsController.editPedal);
 //PUT - actualiza accesorio en al DB
-router.put('/products/pedal/:id', uploadFile.array('image'), adminProductsController.updatePedal);
+router.put('/products/pedal/:id', uploadFile.array('image', 4), adminProductsController.updatePedal);
 
 
 
 
 router.get('/products/cable/add', adminProductsController.addCable);
-router.post('/cables',uploadFile.array('image'), cableValidator, adminProductsController.createCable);
+router.post('/cables',uploadFile.array('image', 4), cableValidator, adminProductsController.createCable);
 //GET envia la vista de edicion del cable
 router.get('/products/cable/edit/:id', adminSessionCheck, adminProductsController.editCable);
 //PUT - actualiza accesorio en al DB
-router.put('/products/cable/:id', uploadFile.array('image'), adminProductsController.updateCable);
+router.put('/products/cable/:id', uploadFile.array('image', 4), adminProductsController.updateCable);
 
 
 

@@ -4,6 +4,7 @@ const $name = document.querySelector('#name');
 const $nameError = document.querySelector('#nameError');
 const $lastname = document.querySelector('#lastname');
 const $lastnameError = document.querySelector('#lastnameError');
+const $profileContainer = document.querySelector('.profile-container');
 const $avatar = document.querySelector('#avatar');
 const $avatarError = document.querySelector('#avatarError');
 const $inputs = document.querySelectorAll('.inputs-container1 input');
@@ -15,7 +16,7 @@ const regEx = {
     avatar: /jpg|JPG|gif|GIF|png|PNG|jpeg|JPEG/
 }
 
-
+console.log($profileContainer)
 
 $name.addEventListener('blur', e => {
     switch(true){
@@ -74,6 +75,12 @@ $avatar.addEventListener('change', e => {
         
 
     }else{
+        let imgOld = document.querySelector('.profile-container img')
+       
+        let img = `${URL.createObjectURL($avatar.files[0])}`
+        let $img = document.createElement('img');
+        $img.src = img;
+        $profileContainer.replaceChild($img, imgOld);
         $avatarError.innerHTML = ''
         console.log($avatar.files)
     }

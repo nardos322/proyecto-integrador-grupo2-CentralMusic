@@ -50,13 +50,13 @@ $nameProduct.addEventListener('blur', e => {
             $nameProduct.classList.add('is-invalid');
             $nameProduct.classList.remove('is-valid');
             break;
-        case !regEx.textAndNumber.test($nameProduct.value) || $nameProduct.value.length < 10:
+        case !regEx.descripton.test($nameProduct.value)  || $nameProduct.value.length < 10:
             $nameProductError.innerHTML = 'Ingrese un nombre de producto valido, tiene que tener 10 caracteres minimo';
             $nameProductError.classList.add('text-danger');
             $nameProduct.classList.remove('is-valid');
             $nameProduct.classList.add('is-invalid');
             break;
-        case !regEx.textAndNumber.test($nameProduct.value) && $nameProduct.value.length > 10:
+        default:
             $nameProductError.innerHTML = ''
             $nameProductError.classList.remove('text-danger');
             $nameProduct.classList.remove('is-invalid');
