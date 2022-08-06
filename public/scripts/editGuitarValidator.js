@@ -337,6 +337,23 @@ $image.addEventListener('change', (e) => {
             })
             $image.value = '';
             break;
+        case imagesPreview.length > 0:
+            imagesPreview.forEach(images => {
+                images.remove()
+            })
+            if($image.files.length){
+                for(let i in $image.files){
+                    if($image.files[i] instanceof File){
+                        createImagePreview($image, i);
+                        
+                        console.log($image.files)
+
+                    }
+          
+                }
+            }
+            $labelError.innerHTML = ''  
+            break;
         default:
             if($image.files.length){
                 for(let i in $image.files){
@@ -352,23 +369,6 @@ $image.addEventListener('change', (e) => {
             $imageError.innerHTML = ''
             $labelError.innerHTML = ''  
             break;
-        case imagesPreview.length > 0:
-            imagesPreview.forEach(images => {
-                images.remove()
-            })
-            if($image.files.length){
-                for(let i in $image.files){
-                    if($image.files[i] instanceof File){
-                        createImagePreview($image, i);
-                        
-                        
-
-                    }
-          
-                }
-            }
-            $labelError.innerHTML = ''  
-            
     }
      
 

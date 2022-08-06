@@ -6,6 +6,10 @@ const productsController = require('../controllers/productsController');
 router.get('/guitars', productsController.guitars);
 // ruta para mostar todos los accesorios
 router.get('/accesories', productsController.accesories);
+
+router.get('/cables', productsController.cables);
+
+router.get('/pedals', productsController.pedals);
 // detalle de producto
 router.get('/detail/:id', productsController.detail);
 // ruta carrito

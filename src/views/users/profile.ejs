@@ -4,20 +4,20 @@
 <body class="home-container bodyDetailsProduct">
     <%-include('../partials/header')  %> 
     <main class="home-container bodyDetailsProduct profile">
-        <h1 class="welcome_user">Hola <%= user.name  %> </h1>
+        <h1 class="welcome_user">Hi <%= user.name  %> </h1>
         <div class="profile-container">
             <img src="../../images/avatars/<%= user.avatar  %> " alt="">
         </div>
         <div class="user_info-container">
-            <h3>Datos personales</h3>
+            <h3>Personal information</h3>
             <div>
-                <p><b>Usuario:</b> <%= user.user  %> </p>
+                <p><b>User:</b> <%= user.user  %> </p>
             </div>
             <div>
-                <p><b>Nombre:</b> <%= user.name  %></p>
+                <p><b>Name:</b> <%= user.name  %></p>
             </div>
             <div>
-                <p><b>Apellido:</b> <%= user.last_name %></p>
+                <p><b>Lastname:</b> <%= user.last_name %></p>
             </div>
             <div>
                 <p><b>Email:</b> <%= user.email  %></p>
@@ -25,10 +25,10 @@
         </div>
         <div class="btns-container">
             <a class="btn-container" href="/users/profile/edit">
-                <input class="btn-style" type="button" value="EDITAR DATOS">
+                <input class="btn-style" type="button" value="EDIT">
             </a>
             <form action="/users/profile/delete/<%= user.id %>?_method=DELETE" method="POST">
-                <button class="btn-style" type="submit">Eliminar Perfil</button>
+                <button class="btn-style" type="submit">Delete profile</button>
             </form>
         </div>
     </main>

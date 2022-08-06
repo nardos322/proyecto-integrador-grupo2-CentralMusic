@@ -14,6 +14,8 @@ const indexRouter = require('./routes/indexRouter');
 const productsRouter = require('./routes/productsRouter');
 const usersRouter = require('./routes/usersRouter');
 const adminRouter = require('./routes/adminRouter');
+const apiUserRouter = require('./routes/apisRoutes/userRouter');
+const apiProductsRouter = require('./routes/apisRoutes/productsRouter');
 
 //Middlewares globales
 // archivos estaticos de uso publico
@@ -46,6 +48,8 @@ app.use('/', indexRouter); // gestiona Home
 app.use('/products', productsRouter); // gestiona listado, detalle
 app.use('/users', usersRouter); // gestiona login, perfil, registro
 app.use('/admin', adminRouter); // gestiona CRUD de productos 
+app.use('/apis/users', apiUserRouter);
+app.use('/apis/products', apiProductsRouter);
 
 
 

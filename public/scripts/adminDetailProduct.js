@@ -1,21 +1,24 @@
 window.addEventListener('load', () => {
 
-    const $imgContainer = document.querySelector('#image-container');
+    const $img = document.querySelector('#img-container img');
     const $imagesPreview = document.querySelector('#images-preview');
     const $imagePreview = document.querySelectorAll('.image-preview img');
-    const $img = document.querySelectorAll('.image-preview img');
+    const $productViewContainer = document.querySelector('.product-view-container')
+    const $imgContainer = document.querySelector('#img-container')
+    const $productView = document.querySelector('.product-view')
+    
+    console.log($imagePreview)
 
-
-
-    console.log($imagePreview[0].src)
-
+    
     for(let i = 0; i < $imagePreview.length; i ++){
-        $imagePreview[i].src.addEventListener('mouseover', e => {
-            alert('holaaaaa')
+        $imagePreview[i].addEventListener('mouseover', e => {
+            console.log($imagePreview[i])
+            $img.src = $imagePreview[i].src
+            
         })
     
     }
     
-
+    
 
 })

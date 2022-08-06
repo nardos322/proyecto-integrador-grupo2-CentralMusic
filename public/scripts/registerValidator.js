@@ -53,6 +53,21 @@ $user.addEventListener('blur', e => {
 });
 
 
+$user.addEventListener('blur', () => {
+    fetch('http://localhost:3000/apis/users')
+    .then(response => response.json())
+    .then(result => {
+        result.data.forEach(element => {
+            if($user.value === element.user){
+                $userError.innerHTML = "Usuario ya registrado";
+                $user.classList.add('is-invalid');
+                
+            }
+        });
+    })
+})
+
+
 $name.addEventListener('blur', e => {
     switch(true){
         case !$name.value.trim():
@@ -115,6 +130,20 @@ $email.addEventListener('blur', e => {
             break;
     }
 });
+
+$email.addEventListener('blur', () => {
+    fetch('http://localhost:3000/apis/users')
+    .then(response => response.json())
+    .then(result => {
+        result.data.forEach(element => {
+            if($email.value === element.email){
+                $emailError.innerHTML = "email ya registrado";
+                $email.classList.add('is-invalid');
+                
+            }
+        });
+    })
+})
 
 $password.addEventListener('focus', e => {
     $passwordError.innerHTML ='Debe tener una letra minúscula, una letra mayúscula, un número, un carácter especial y mínimo 8 dígitos';

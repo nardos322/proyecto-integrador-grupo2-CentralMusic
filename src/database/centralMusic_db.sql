@@ -78,7 +78,6 @@ DROP TABLE IF EXISTS `cuerdas_details`;
 CREATE TABLE `cuerdas_details` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `cantidad_cuerdas` int(11) DEFAULT NULL,
-  `tension` varchar(45) DEFAULT NULL,
   `materiales` varchar(45) DEFAULT NULL,
   `calibre` varchar(45) DEFAULT NULL,
   `products_id` int(11) NOT NULL,
@@ -94,7 +93,7 @@ CREATE TABLE `cuerdas_details` (
 
 
 /*!40000 ALTER TABLE `cuerdas_details` DISABLE KEYS */;
-INSERT INTO `cuerdas_details` VALUES (1,6,'Media','Nickel','0.10',5);
+INSERT INTO `cuerdas_details` VALUES (1,6,'Nickel','0.10',5);
 /*!40000 ALTER TABLE `cuerdas_details` ENABLE KEYS */;
 UNLOCK TABLES;
 

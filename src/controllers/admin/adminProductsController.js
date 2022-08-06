@@ -199,7 +199,7 @@ const adminProductsController = {
                             products_id: req.params.id,
                         }
                     })
-                        .then(() => {
+                    .then(() => {
 
                             if (req.files !== undefined) {
 

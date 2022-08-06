@@ -1,3 +1,4 @@
+const { Console } = require('console');
 const multer = require('multer');
 const path = require('path');
 
@@ -12,6 +13,7 @@ const storage = multer.diskStorage({
     //filename permite indicar con que nombre se guardara ese archivo en el servidor
     filename: (req, file, cb) => {
         // agrego Date.now para que los nombres de las imagenes nunca se repitan
+        console.log(file)
         const newImageProduct = 'imageProduct' + Date.now() + path.extname(file.originalname);
         cb(null, newImageProduct);
     },

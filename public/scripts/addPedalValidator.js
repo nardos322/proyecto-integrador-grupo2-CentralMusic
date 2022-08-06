@@ -450,7 +450,7 @@ $formAddPedal.addEventListener('submit', e => {
    }
    console.log(errors)
    if(errors.length == 0){
-        $formAddGuitar.submit()
+        $formAddPedal.submit()
    }else{
         console.log( `hay ${errors.length} errores`);
         $submitError.innerHTML = 'Hay errores';

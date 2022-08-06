@@ -215,21 +215,6 @@ $image.addEventListener('change', (e) => {
             })
             $image.value = '';
             break;
-        default:
-            if($image.files.length){
-                for(let i in $image.files){
-                    if($image.files[i] instanceof File){
-                        createImagePreview($image, i);
-                        
-                    }
-          
-                }
-            }
-            $image.classList.remove('is-invalid');
-            $image.classList.add('is-valid');
-            $imageError.innerHTML = ''
-            $labelError.innerHTML = ''  
-            break;
         case imagesPreview.length > 0:
             imagesPreview.forEach(images => {
                 images.remove()
@@ -246,7 +231,23 @@ $image.addEventListener('change', (e) => {
                 }
             }
             $labelError.innerHTML = ''  
+            break;
             
+        default:
+            if($image.files.length){
+                for(let i in $image.files){
+                    if($image.files[i] instanceof File){
+                        createImagePreview($image, i);
+                        
+                    }
+          
+                }
+            }
+            $image.classList.remove('is-invalid');
+            $image.classList.add('is-valid');
+            $imageError.innerHTML = ''
+            $labelError.innerHTML = ''  
+            break;
     }
      
 

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%-include('../partials/head', {title: "Home"})  %> 
+<body class="home-container">
+    <%-include('../partials/header')  %> 
+    <main class="main-index">
+        <section class="new-products products">
+            <% accesories.forEach(accesory => { %>
+                
+                    <article>
+                        <a href="/products/detail/<%- accesory.id %> ">
+                            <div class="product-container">
+                                <div class="img-container">
+                                    <img src="/images/products/<%- accesory.productsImages[0].name_image %>" alt="producto-guitarra">
+                                </div>
+                                <div class="description-container">
+                                    <div class="guitar-precio">
+                                        <h4><%- accesory.name %> </h4>
+                                        <p>$<%- accesory.price %> </p>
+                                    </div>
+                                    <p class="description"><%- accesory.description %> </p>
+                                    <p><b>0</b> Colores available</p>
+                                </div>
+                            </div>
+                        </a>
+                    </article>
+                
+                
+             <% }) %>
+        </section>
+
+    </main>
+    <%-include('../partials/footer')  %> 
+</body>
+</html>
