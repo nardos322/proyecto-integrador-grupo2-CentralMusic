@@ -6,21 +6,7 @@ const adminController = {
         })
     },
 
-    guitars: (req, res) => {
-
-    },
-
-    accesories: (req, res) => {
-
-    },
-
-    pedals: (req, res) => {
-
-    },
-
-    cables: (req, res) => {
-
-    },
+    
 }
 
 

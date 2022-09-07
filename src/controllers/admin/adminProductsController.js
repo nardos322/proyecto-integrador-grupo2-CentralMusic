@@ -72,7 +72,7 @@ const adminProductsController = {
 
 
         if (errors.isEmpty()) {
-           
+
             db.Product.create({
 
                 price: req.body.price,
@@ -83,7 +83,7 @@ const adminProductsController = {
                 marcas_id: req.body.marca,
             })
                 .then(product => {
-                    
+
                     db.GuitarDetail.create({
 
                         model: req.body.model,
@@ -139,7 +139,7 @@ const adminProductsController = {
         let idProduct = +req.params.id;
         // 2- Buscar el producto a editar
         let listaMarcas;
-        
+
         db.Marca.findAll()
             .then(marcas => {
                 listaMarcas = marcas
@@ -184,7 +184,7 @@ const adminProductsController = {
                 }
             })
                 .then(() => {
-                    
+
                     db.GuitarDetail.update({
                         model: req.body.model,
                         line: req.body.line,
@@ -199,7 +199,7 @@ const adminProductsController = {
                             products_id: req.params.id,
                         }
                     })
-                    .then(() => {
+                        .then(() => {
 
                             if (req.files !== undefined) {
 
@@ -399,7 +399,7 @@ const adminProductsController = {
                 }
             })
                 .then(() => {
-                    
+
 
                     db.CuerdaDetail.update({
                         cantidad_cuerdas: req.body.strings,
@@ -423,32 +423,32 @@ const adminProductsController = {
                                             products_id: req.params.id
                                         }
                                     })
-                                    .then(images => {
-                                        let imagesName = images.map(image => image.name_image);
+                                        .then(images => {
+                                            let imagesName = images.map(image => image.name_image);
 
-                                        imagesName.forEach(image => {
-                                            if (fs.existsSync(path.join(__dirname, `../../../public/images/products/${image}`))) {
-                                                fs.unlinkSync(path.join(__dirname, `../../../public/images/products/${image}`))
-                                            } else {
-                                                console.log('-- no se encontro el archivo')
-                                            }
-                                        })
-                                        db.ProductImage.destroy({
-                                            where: {
-                                                products_id: req.params.id,
-                                            }
-                                        })
-                                        .then(() => {
-                                             let arrayImages = req.files.map(image => {
-                                                    return {
-                                                        name_image: image.filename,
-                                                        products_id: req.params.id
-                                                    }
+                                            imagesName.forEach(image => {
+                                                if (fs.existsSync(path.join(__dirname, `../../../public/images/products/${image}`))) {
+                                                    fs.unlinkSync(path.join(__dirname, `../../../public/images/products/${image}`))
+                                                } else {
+                                                    console.log('-- no se encontro el archivo')
+                                                }
                                             })
-                                                db.ProductImage.bulkCreate(arrayImages)
-                                                    .then(() => res.redirect('/admin/products'))
-                                        })
-                                        .catch(error => console.log(error))
+                                            db.ProductImage.destroy({
+                                                where: {
+                                                    products_id: req.params.id,
+                                                }
+                                            })
+                                                .then(() => {
+                                                    let arrayImages = req.files.map(image => {
+                                                        return {
+                                                            name_image: image.filename,
+                                                            products_id: req.params.id
+                                                        }
+                                                    })
+                                                    db.ProductImage.bulkCreate(arrayImages)
+                                                        .then(() => res.redirect('/admin/products'))
+                                                })
+                                                .catch(error => console.log(error))
                                         })
                                         .catch(error => console.log(error))
                                 } else {
@@ -560,31 +560,31 @@ const adminProductsController = {
     },
 
     editPedal: (req, res) => {
-         // 1- Obtener el id del producto
-         let idProduct = +req.params.id;
-         // 2- Buscar el producto a editar
-         let listaMarcas;
- 
-         db.Marca.findAll()
-             .then(marcas => {
-                 listaMarcas = marcas
- 
-             })
-         db.Product.findByPk(idProduct, {
-             include: [
-                 { association: 'marca' },
-                 { association: 'pedalDetail' },
-                 { association: 'productsImages' },
-             ]
-         })
-             .then(product => {
-                 //res.send(product)
-                 res.render('admin/products/editPedal', {
-                     listaMarcas,
-                     product
-                 })
-             })
-             .catch(error => console.log(error))
+        // 1- Obtener el id del producto
+        let idProduct = +req.params.id;
+        // 2- Buscar el producto a editar
+        let listaMarcas;
+
+        db.Marca.findAll()
+            .then(marcas => {
+                listaMarcas = marcas
+
+            })
+        db.Product.findByPk(idProduct, {
+            include: [
+                { association: 'marca' },
+                { association: 'pedalDetail' },
+                { association: 'productsImages' },
+            ]
+        })
+            .then(product => {
+                //res.send(product)
+                res.render('admin/products/editPedal', {
+                    listaMarcas,
+                    product
+                })
+            })
+            .catch(error => console.log(error))
 
 
 
@@ -610,7 +610,7 @@ const adminProductsController = {
                 }
             })
                 .then(() => {
-                    
+
 
                     db.PedalDetail.update({
                         vocal: req.body.vocal,
@@ -753,7 +753,7 @@ const adminProductsController = {
                 })
                 .catch(error => console.log(error));
 
-            
+
 
         } else {
             db.Marca.findAll()
@@ -770,31 +770,31 @@ const adminProductsController = {
     },
 
     editCable: (req, res) => {
-         // 1- Obtener el id del producto
-         let idProduct = +req.params.id;
-         // 2- Buscar el producto a editar
-         let listaMarcas;
- 
-         db.Marca.findAll()
-             .then(marcas => {
-                 listaMarcas = marcas
- 
-             })
-         db.Product.findByPk(idProduct, {
-             include: [
-                 { association: 'marca' },
-                 { association: 'cableDetail' },
-                 { association: 'productsImages' },
-             ]
-         })
-             .then(product => {
-                 //res.send(product)
-                 res.render('admin/products/editCable', {
-                     listaMarcas,
-                     product
-                 })
-             })
-             .catch(error => console.log(error))
+        // 1- Obtener el id del producto
+        let idProduct = +req.params.id;
+        // 2- Buscar el producto a editar
+        let listaMarcas;
+
+        db.Marca.findAll()
+            .then(marcas => {
+                listaMarcas = marcas
+
+            })
+        db.Product.findByPk(idProduct, {
+            include: [
+                { association: 'marca' },
+                { association: 'cableDetail' },
+                { association: 'productsImages' },
+            ]
+        })
+            .then(product => {
+                //res.send(product)
+                res.render('admin/products/editCable', {
+                    listaMarcas,
+                    product
+                })
+            })
+            .catch(error => console.log(error))
 
 
 
@@ -805,7 +805,7 @@ const adminProductsController = {
 
 
         if (errors.isEmpty()) {
-            
+
 
             db.Product.update({
                 price: req.body.price,
@@ -820,7 +820,7 @@ const adminProductsController = {
                 }
             })
                 .then(() => {
-                    
+
 
                     db.CableDetail.update({
                         conector_entrada: req.body.inputIn,
@@ -913,12 +913,12 @@ const adminProductsController = {
 
 
     },
- 
+
     delete: (req, res) => {
 
         let idProduct = +req.params.id;
-        
-       
+
+
 
         db.Product.findByPk(idProduct, {
             include: [
@@ -931,185 +931,185 @@ const adminProductsController = {
                 { association: 'productsImages' }
             ]
         })
-        .then(product => {
-           
-            if(product.dataValues.subcategories_id === 1){
-                db.GuitarDetail.destroy({
-                    where: {
-                        products_id: idProduct
-                    }
-                })
-                .then(() => {
-                    db.ProductImage.findAll({
+            .then(product => {
+
+                if (product.dataValues.subcategories_id === 1) {
+                    db.GuitarDetail.destroy({
                         where: {
                             products_id: idProduct
                         }
                     })
-                    .then(images => {
-                        let imageNames = images.map(image => image.name_image);
+                        .then(() => {
+                            db.ProductImage.findAll({
+                                where: {
+                                    products_id: idProduct
+                                }
+                            })
+                                .then(images => {
+                                    let imageNames = images.map(image => image.name_image);
 
-                        imageNames.forEach(image => {
-                            if(fs.existsSync(path.join(__dirname, `../../../public/images/products/${image}`))){
-                              fs.unlinkSync(path.join(__dirname, `../../../public/images/products/${image}`))
-                            }else{
-                              console.log("-- No se encontró el archivo");
-                            }
-                          });
-                          db.ProductImage.destroy({
-                              where: {
-                                  products_id: idProduct
-                              }
-                          })
-                          .then(() => {
-                              db.Product.destroy({
-                                  where: {
-                                      id: idProduct
-                                  }
-                              })
-                          })
-                          .then(() => res.redirect('/admin/products'))
-                          .catch((error) => console.log(error))
+                                    imageNames.forEach(image => {
+                                        if (fs.existsSync(path.join(__dirname, `../../../public/images/products/${image}`))) {
+                                            fs.unlinkSync(path.join(__dirname, `../../../public/images/products/${image}`))
+                                        } else {
+                                            console.log("-- No se encontró el archivo");
+                                        }
+                                    });
+                                    db.ProductImage.destroy({
+                                        where: {
+                                            products_id: idProduct
+                                        }
+                                    })
+                                        .then(() => {
+                                            db.Product.destroy({
+                                                where: {
+                                                    id: idProduct
+                                                }
+                                            })
+                                        })
+                                        .then(() => res.redirect('/admin/products'))
+                                        .catch((error) => console.log(error))
 
-                    })
-                    .catch((error) => console.log(error))
+                                })
+                                .catch((error) => console.log(error))
 
-                })
-                .catch((error) => console.log(error))
-                
-            } else if(product.dataValues.subcategories_id === 2){
-                db.PedalDetail.destroy({
-                    where: {
-                        products_id: idProduct
-                    }
-                })
-                .then(() => {
-                    db.ProductImage.findAll({
+                        })
+                        .catch((error) => console.log(error))
+
+                } else if (product.dataValues.subcategories_id === 2) {
+                    db.PedalDetail.destroy({
                         where: {
                             products_id: idProduct
                         }
                     })
-                    .then(images => {
-                        let imageNames = images.map(image => image.name_image);
+                        .then(() => {
+                            db.ProductImage.findAll({
+                                where: {
+                                    products_id: idProduct
+                                }
+                            })
+                                .then(images => {
+                                    let imageNames = images.map(image => image.name_image);
 
-                        imageNames.forEach(image => {
-                            if(fs.existsSync(path.join(__dirname, `../../../public/images/products/${image}`))){
-                              fs.unlinkSync(path.join(__dirname, `../../../public/images/products/${image}`))
-                            }else{
-                              console.log("-- No se encontró el archivo");
-                            }
-                          });
-                          db.ProductImage.destroy({
-                              where: {
-                                  products_id: idProduct
-                              }
-                          })
-                          .then(() => {
-                              db.Product.destroy({
-                                  where: {
-                                      id: idProduct
-                                  }
-                              })
-                          })
-                          .then(() => res.redirect('/admin/products'))
-                          .catch((error) => console.log(error))
+                                    imageNames.forEach(image => {
+                                        if (fs.existsSync(path.join(__dirname, `../../../public/images/products/${image}`))) {
+                                            fs.unlinkSync(path.join(__dirname, `../../../public/images/products/${image}`))
+                                        } else {
+                                            console.log("-- No se encontró el archivo");
+                                        }
+                                    });
+                                    db.ProductImage.destroy({
+                                        where: {
+                                            products_id: idProduct
+                                        }
+                                    })
+                                        .then(() => {
+                                            db.Product.destroy({
+                                                where: {
+                                                    id: idProduct
+                                                }
+                                            })
+                                        })
+                                        .then(() => res.redirect('/admin/products'))
+                                        .catch((error) => console.log(error))
 
-                    })
-                    .catch((error) => console.log(error))
+                                })
+                                .catch((error) => console.log(error))
 
-                })
-                .catch((error) => console.log(error))
+                        })
+                        .catch((error) => console.log(error))
 
-            } else if(product.dataValues.subcategories_id === 3){
-                db.CuerdaDetail.destroy({
-                    where: {
-                        products_id: idProduct
-                    }
-                })
-                .then(() => {
-                    db.ProductImage.findAll({
+                } else if (product.dataValues.subcategories_id === 3) {
+                    db.CuerdaDetail.destroy({
                         where: {
                             products_id: idProduct
                         }
                     })
-                    .then(images => {
-                        let imageNames = images.map(image => image.name_image);
+                        .then(() => {
+                            db.ProductImage.findAll({
+                                where: {
+                                    products_id: idProduct
+                                }
+                            })
+                                .then(images => {
+                                    let imageNames = images.map(image => image.name_image);
 
-                        imageNames.forEach(image => {
-                            if(fs.existsSync(path.join(__dirname, `../../../public/images/products/${image}`))){
-                              fs.unlinkSync(path.join(__dirname, `../../../public/images/products/${image}`))
-                            }else{
-                              console.log("-- No se encontró el archivo");
-                            }
-                          });
-                          db.ProductImage.destroy({
-                              where: {
-                                  products_id: idProduct
-                              }
-                          })
-                          .then(() => {
-                              db.Product.destroy({
-                                  where: {
-                                      id: idProduct
-                                  }
-                              })
-                          })
-                          .then(() => res.redirect('/admin/products'))
-                          .catch((error) => console.log(error))
+                                    imageNames.forEach(image => {
+                                        if (fs.existsSync(path.join(__dirname, `../../../public/images/products/${image}`))) {
+                                            fs.unlinkSync(path.join(__dirname, `../../../public/images/products/${image}`))
+                                        } else {
+                                            console.log("-- No se encontró el archivo");
+                                        }
+                                    });
+                                    db.ProductImage.destroy({
+                                        where: {
+                                            products_id: idProduct
+                                        }
+                                    })
+                                        .then(() => {
+                                            db.Product.destroy({
+                                                where: {
+                                                    id: idProduct
+                                                }
+                                            })
+                                        })
+                                        .then(() => res.redirect('/admin/products'))
+                                        .catch((error) => console.log(error))
 
-                    })
-                    .catch((error) => console.log(error))
+                                })
+                                .catch((error) => console.log(error))
 
-                })
-                .catch((error) => console.log(error))
-            } else if(product.dataValues.subcategories_id === 4){
-                db.CableDetail.destroy({
-                    where: {
-                        products_id: idProduct
-                    }
-                })
-                .then(() => {
-                    db.ProductImage.findAll({
+                        })
+                        .catch((error) => console.log(error))
+                } else if (product.dataValues.subcategories_id === 4) {
+                    db.CableDetail.destroy({
                         where: {
                             products_id: idProduct
                         }
                     })
-                    .then(images => {
-                        let imageNames = images.map(image => image.name_image);
+                        .then(() => {
+                            db.ProductImage.findAll({
+                                where: {
+                                    products_id: idProduct
+                                }
+                            })
+                                .then(images => {
+                                    let imageNames = images.map(image => image.name_image);
 
-                        imageNames.forEach(image => {
-                            if(fs.existsSync(path.join(__dirname, `../../../public/images/products/${image}`))){
-                              fs.unlinkSync(path.join(__dirname, `../../../public/images/products/${image}`))
-                            }else{
-                              console.log("-- No se encontró el archivo");
-                            }
-                          });
-                          db.ProductImage.destroy({
-                              where: {
-                                  products_id: idProduct
-                              }
-                          })
-                          .then(() => {
-                              db.Product.destroy({
-                                  where: {
-                                      id: idProduct
-                                  }
-                              })
-                          })
-                          .then(() => res.redirect('/admin/products'))
-                          .catch((error) => console.log(error))
+                                    imageNames.forEach(image => {
+                                        if (fs.existsSync(path.join(__dirname, `../../../public/images/products/${image}`))) {
+                                            fs.unlinkSync(path.join(__dirname, `../../../public/images/products/${image}`))
+                                        } else {
+                                            console.log("-- No se encontró el archivo");
+                                        }
+                                    });
+                                    db.ProductImage.destroy({
+                                        where: {
+                                            products_id: idProduct
+                                        }
+                                    })
+                                        .then(() => {
+                                            db.Product.destroy({
+                                                where: {
+                                                    id: idProduct
+                                                }
+                                            })
+                                        })
+                                        .then(() => res.redirect('/admin/products'))
+                                        .catch((error) => console.log(error))
 
-                    })
-                    .catch((error) => console.log(error))
+                                })
+                                .catch((error) => console.log(error))
 
-                })
-                .catch((error) => console.log(error))
+                        })
+                        .catch((error) => console.log(error))
 
-            }
+                }
 
-        })
-        
+            })
 
-        
+
+
     },
 }
 

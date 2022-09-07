@@ -12,10 +12,7 @@ const adminSessionCheck = require('../middlewares/adminSessionCheck');
 
 // admin index
 router.get('/', adminSessionCheck, adminController.index);
-router.get('/guitars', adminSessionCheck, adminController.guitars)
-router.get('/accesories', adminSessionCheck, adminController.accesories)
-router.get('/pedals', adminSessionCheck,adminController.pedals)
-router.get('/cables', adminSessionCheck, adminController.cables)
+
 
 
 
